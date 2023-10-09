@@ -2,8 +2,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const user = urlParams.get('user');
 
 if (!user) {
-  // If 'user' parameter is not set, clear all existing HTML content and display the error message.
-  document.body.innerHTML = ''; // Clear existing content
+  document.body.innerHTML = '';
 
   const errorMessage = document.createElement('div');
   errorMessage.innerText = 'ERROR: Incorrect Use\nExample: https://cxwatcher.github.io/embed.html?user=<USERNAME>';
