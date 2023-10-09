@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CxWatcher</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="app.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.14.3/video-js.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.14.3/video.min.js"></script>
+    <script src="https://player.live-video.net/1.18.0/amazon-ivs-videojs-tech.min.js"></script>
+<link href="videojs-watermark.css" rel="stylesheet">
+<script src="videojs-watermark.js"></script>
+<script src="https://player.live-video.net/1.18.0/amazon-ivs-quality-plugin.min.js"></script>
+<script src="h.js"></script>
+<link rel="stylesheet" type="text/css" href="lit.css">
+
+<style>
+</style>
+  </head>
+  <body>
+    <div id="video-container">
+<div id="overlay-two">
+  <img id="fullscreen-button" src="https://i.imgur.com/Zo9GjgJ.png" alt="Fullscreen button" onclick="toggleFullscreen()" />
+</div>
+  <video id="amazon-ivs-videojs" class="video-js vjs-4-3 vjs-big-play-centered" poster="https://i.imgur.com/jhaOd2e.png" controls autoplay  playsinline></video>
+    </div>
+  <div id="chat-container">
+    <iframe id="chat" src="https://kick.com/sam/chatroom" referrer="https://kick.com/therealmoisesb"></iframe>
+  </div>
+<div class="overlay">
+  <img src="https://i.imgur.com/DpIbA7m.png" alt="Click me" class="overlay-btn">
+<div class="overlay-content">
+<button id="ice" class="button-image" data-text="Ice"> 
+  <img src="https://files.kick.com/images/user/146923/profile_image/conversion/f13387ea-e14f-477f-8d59-742250aac30a-thumb.webp">
+</button>
+<button id="joel" class="button-image" data-text="Joel">
+  <img src="https://files.kick.com/images/user/4003953/profile_image/conversion/58d7d8af-cc5f-4aac-9590-8dba4bf810e6-thumb.webp">
+</button>
+<button id="hyub" class="button-image" data-text="Hyub">
+  <img src="https://files.kick.com/images/user/168860/profile_image/conversion/80cf90fd-4e8a-43a1-abfc-2e9e39487332-thumb.webp">
+</button>
+<button id="Sam" class="button-image" data-text="Sam">
+  <img src="https://files.kick.com/images/user/336946/profile_image/conversion/95f165f9-dfe4-4ea2-a3a1-0e91d2f2263c-thumb.webp">
+</button>
+<button id="DeePak" class="button-image" data-text="DeePak">
+  <img src="https://i.imgur.com/G4WRgK5.png">
+</button>
+<button id="sus" class="button-image" data-text="Sus">
+  <img src="https://files.kick.com/images/user/78345/profile_image/conversion/7182cab4-9b58-4a50-a65f-95a8590bb728-thumb.webp">
+</button>
+<button id="sho" class="button-image" data-text="sho">
+  <img src="https://i.imgur.com/UV54Dao.png">
+</button>
+</div>
+</div>
+<script src="deepakyum.js"></script>
+<script>
+const overlayBtn = document.querySelector('.overlay-btn');
+const overlay = document.querySelector('.overlay');
+
+overlayBtn.addEventListener('click', () => {
+  overlay.classList.toggle('show');
+});
+	
+
+</script>
+</body>
+</html>
