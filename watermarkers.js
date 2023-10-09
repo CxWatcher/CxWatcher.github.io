@@ -7,7 +7,6 @@ if (!user) {
   const errorMessage = document.createElement('div');
   errorMessage.innerText = 'ERROR: Incorrect Use\nExample: https://cxwatcher.github.io/embed.html?user=<USERNAME>';
   errorMessage.style.fontSize = '18px';
-  errorMessage.style.textAlign = 'center';
   document.body.appendChild(errorMessage);
 } else {
   const video = document.getElementById('amazon-ivs-videojs');
