@@ -8,7 +8,7 @@
   var samBtn = document.getElementById('Sam')
   var ac7Btn = document.getElementById('ac7')
   var bennyBtn = document.getElementById('benny')
-  let currentstreamer = "iceposeidon";
+  let currentstreamer = "suspendas";
   let checking = false;
 
   iceBtn.addEventListener('click', function() {
