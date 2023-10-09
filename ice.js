@@ -43,8 +43,6 @@ const player = videojs("amazon-ivs-videojs", {
     fullscreenButton.src = 'https://i.imgur.com/Zo9GjgJ.png';
   }
 }
-
-let checking = false;
   
 function changeIframeSource(newSrc) {
   chatIframe.src = newSrc;
