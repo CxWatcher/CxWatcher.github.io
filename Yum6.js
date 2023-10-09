@@ -6,6 +6,8 @@
   var susBtn = document.getElementById('sus')
   var shoBtn = document.getElementById('sho')
   var samBtn = document.getElementById('Sam')
+  var ac7Btn = document.getElementById('ac7')
+  var bennyBtn = document.getElementById('benny')
   let currentstreamer = "iceposeidon";
   let checking = false;
 
@@ -50,6 +52,18 @@
   retryLoad();
   player.poster('https://i.imgur.com/jhaOd2e.png'); 
   changeIframeSource("https://kick.com/sam/chatroom");
+});
+  ac7Btn.addEventListener('click', function() {
+  currentstreamer = "ac7ionman";
+  retryLoad();
+  player.poster('https://i.imgur.com/jhaOd2e.png'); 
+  changeIframeSource("https://kick.com/ac7ionman/chatroom");
+});
+  bennyBtn.addEventListener('click', function() {
+  currentstreamer = "bennymack";
+  retryLoad();
+  player.poster('https://i.imgur.com/jhaOd2e.png'); 
+  changeIframeSource("https://kick.com/bennymack/chatroom");
 });
 function changeIframeSource(newSrc) {
   chatIframe.src = newSrc;
