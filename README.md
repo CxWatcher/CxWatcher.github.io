@@ -2,9 +2,9 @@
 
 Kick.com Cx Stream Multi-Viewer + Public Embed
 
-## Public Kick.com Embed
+## Public Kick Embed
 
-To embed the Kick.com stream viewer on your website, you can use the following URL format:
+To embed any Kick.com stream on your website, you can use the following URL:
 
 ```html
 https://cxwatcher.github.io/embed.html?user=<USERNAME>
