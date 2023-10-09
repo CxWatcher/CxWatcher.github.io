@@ -44,7 +44,6 @@ const player = videojs("amazon-ivs-videojs", {
   }
 }
 
-let currentstreamer = "sam";
 let checking = false;
   
 function changeIframeSource(newSrc) {
