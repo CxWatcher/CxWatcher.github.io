@@ -17,7 +17,7 @@
   changeIframeSource("https://kick.com/iceposeidon/chatroom");
 });
   joelBtn.addEventListener('click', function() {
-  currentstreamer = "imjoel3004";
+  currentstreamer = "kangjoel";
   retryLoad();
   player.poster('https://i.imgur.com/jhaOd2e.png'); 
   changeIframeSource("https://kick.com/imjoel3004/chatroom");
