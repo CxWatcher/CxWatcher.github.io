@@ -8,7 +8,7 @@
   var samBtn = document.getElementById('Sam')
   var ac7Btn = document.getElementById('ac7')
   var bennyBtn = document.getElementById('benny')
-  let currentstreamer = "bennymack";
+  let currentstreamer = "kangjoel";
   let checking = false;
   iceBtn.addEventListener('click', function() {
   currentstreamer = "iceposeidon";
@@ -17,7 +17,7 @@
   changeIframeSource("https://kick.com/iceposeidon/chatroom");
 });
   joelBtn.addEventListener('click', function() {
-  currentstreamer = "imjoel3004";
+  currentstreamer = "kangjoel";
   retryLoad();
   player.poster('https://i.imgur.com/jhaOd2e.png');
   changeIframeSource("https://kick.com/imjoel3004/chatroom");
