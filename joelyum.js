@@ -70,7 +70,7 @@ function changeIframeSource(newSrc) {
 }
 
 function retryLoad() {
-  fetch(`https://kick.com/api/v2/channels/${currentstreamer}`)
+  fetch(`https://kick.com/api/v1/channels/${currentstreamer}`)
     .then(response => response.json())
     .then(data => {
       const playback_url = data.playback_url;
