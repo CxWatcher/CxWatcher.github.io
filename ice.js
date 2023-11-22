@@ -27,7 +27,7 @@ const player = videojs("amazon-ivs-videojs", {
     .then(response => response.json())
     .then(data => {
       const playback_url = data.playback_url;
-      const src = `https://cors.zimjs.com/${playback_url}`;
+      const src = `${playback_url}`;
       player.src({ type: 'application/x-mpegURL', src });
       player.play();
     })
@@ -54,7 +54,7 @@ function retryLoad() {
     .then(response => response.json())
     .then(data => {
       const playback_url = data.playback_url;
-      const src = `https://cors.zimjs.com/${playback_url}`;
+      const src = `${playback_url}`;
       player.src({ type: 'application/x-mpegURL', src });
       player.play();
     setTimeout(() => checking = false, 2000);
