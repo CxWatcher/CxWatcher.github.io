@@ -1,4 +1,6 @@
   const chatIframe = document.getElementById("chat");
+const videoElement = document.getElementById("amazon-ivs-videojs");
+const iframeElement = document.getElementById("frame1");
   var iceBtn = document.getElementById('ice');
   var joelBtn = document.getElementById('joel');
   var hyubBtn = document.getElementById('hyub');
@@ -12,16 +14,18 @@
   let checking = false;
 
   iceBtn.addEventListener('click', function() {
+  videoElement.style.display = "block";
+  iframeElement.style.display = "none";
   currentstreamer = "iceposeidon";
   retryLoad();
   player.poster('https://i.imgur.com/jhaOd2e.png'); 
   changeIframeSource("https://kick.com/iceposeidon/chatroom");
 });
-  joelBtn.addEventListener('click', function() {
-  currentstreamer = "kangjoel";
-  retryLoad();
-  player.poster('https://i.imgur.com/jhaOd2e.png');
-  changeIframeSource("https://kick.com/imjoel3004/chatroom");
+joelBtn.addEventListener('click', function() {
+  videoElement.style.display = "none";
+  iframeElement.style.display = "block";
+  iframeElement.src = "https://player.kick.com/kangjoel";
+  changeIframeSource("https://kick.com/kangjoel/chatroom");
 });
   shoBtn.addEventListener('click', function() {
   currentstreamer = "shotime";
@@ -48,6 +52,8 @@
   changeIframeSource("https://kick.com/suspendas/chatroom");
   });	
   samBtn.addEventListener('click', function() {
+  videoElement.style.display = "block";
+  iframeElement.style.display = "none";
   currentstreamer = "sam";
   retryLoad();
   player.poster('https://i.imgur.com/jhaOd2e.png'); 
