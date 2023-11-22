@@ -23,11 +23,11 @@ const player = videojs("amazon-ivs-videojs", {
   
   player.src({ type: 'application/x-mpegURL', src: '1' });
 
-  fetch('https://kick.com/api/v2/channels/ac7ionman')
+  fetch('https://kick.com/api/v2/channels/kangjoel')
     .then(response => response.json())
     .then(data => {
       const playback_url = data.playback_url;
-      const src = `https://cors.zimjs.com/${playback_url}`;
+      const src = `${playback_url}`;
       player.src({ type: 'application/x-mpegURL', src });
       player.play();
     })
