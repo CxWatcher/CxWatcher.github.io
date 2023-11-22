@@ -1,4 +1,5 @@
   const chatIframe = document.getElementById("chat");
+  const frame1Iframe = document.getElementById("frame1");
   var iceBtn = document.getElementById('ice');
   var joelBtn = document.getElementById('joel');
   var hyubBtn = document.getElementById('hyub');
