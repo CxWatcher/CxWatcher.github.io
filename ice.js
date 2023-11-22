@@ -1,37 +1,9 @@
-
-  const video = document.getElementById('amazon-ivs-videojs');
-  registerIVSTech(videojs);
-  registerIVSQualityPlugin(videojs);
-const player = videojs("amazon-ivs-videojs", {
-  techOrder: ["AmazonIVS"],
-  controls: true,
-  liveui: true,
-  bigPlayButton: true,
-  controlBar: {
-    volumePanel: {
-      inline: false
-    },
-    pictureInPictureToggle: false 
-  },
-  amazonIVS: {
-    heartbeat: 500,
-    reconnect: true 
-  }
-});
-
-  player.enableIVSQualityPlugin();
-  
-  player.src({ type: 'application/x-mpegURL', src: '1' });
-
-  fetch('https://kick.com/api/v2/channels/iceposeidon')
-    .then(response => response.json())
-    .then(data => {
-      const playback_url = data.playback_url;
-      const src = `${playback_url}`;
-      player.src({ type: 'application/x-mpegURL', src });
-      player.play();
-    })
-    .catch(error => console.error(error));
+function changeIframeSrc() {
+    var iframe = document.getElementById('frame1');
+    var newSrc = 'https://player.kick.com/sam';
+    iframe.src = newSrc;
+}
+changeIframeSrc()
 	
 	function toggleFullscreen() {
   const videoContainer = document.getElementById('video-container');
@@ -49,18 +21,7 @@ function changeIframeSource(newSrc) {
   chatIframe.contentWindow.location.reload(true);
 }
 
-function retryLoad() {
-  fetch(`https://kick.com/api/v2/channels/sam`)
-    .then(response => response.json())
-    .then(data => {
-      const playback_url = data.playback_url;
-      const src = `${playback_url}`;
-      player.src({ type: 'application/x-mpegURL', src });
-      player.play();
-    setTimeout(() => checking = false, 2000);
-    })
-    .catch(error => console.error(error));
-}
+
 function loadWithDelay() {
   setTimeout(function() {
     retryLoad();
