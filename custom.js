@@ -14,10 +14,27 @@ overlayBtn.addEventListener('click', function() {
   if (userInput) {
     currentstreamer = userInput;
     retryLoad();
-    player.poster('https://i.imgur.com/jhaOd2e.png'); 
+    player.poster('https://i.imgur.com/jhaOd2e.png');
+
+    if (currentstreamer === 'kangjoel') {
     changeIframeSource(`https://kick.com/${currentstreamer}/chatroom`);
+      // Create a new iframe element
+      const newIframe = document.createElement('iframe');
+      newIframe.src = `https://player.kick.com/kangjoel`;
+      newIframe.width = '100%';
+      newIframe.height = '100%';
+      newIframe.frameBorder = '0';
+
+      // Append the new iframe on top of the existing video element
+      const videoContainer = document.getElementById('video-container');
+      videoContainer.appendChild(newIframe);
+    } else {
+      // If channel name is not 'kangjoel', update the existing iframe
+      changeIframeSource(`https://kick.com/${currentstreamer}/chatroom`);
+    }
   }
 });
+
 
 function changeIframeSource(newSrc) {
   chatIframe.src = newSrc;
