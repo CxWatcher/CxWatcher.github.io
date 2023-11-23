@@ -15,10 +15,10 @@ overlayBtn.addEventListener('click', function() {
     currentstreamer = userInput;
     retryLoad();
     player.poster('https://i.imgur.com/jhaOd2e.png');
+    changeIframeSource(`https://kick.com/${currentstreamer}/chatroom`);
 
     if (currentstreamer === 'kangjoel') {
       const newIframe = document.createElement('iframe');
-      changeIframeSource(`https://kick.com/${currentstreamer}/chatroom`);
       newIframe.src = `https://player.kick.com/kangjoel`;
       newIframe.width = '100%';
       newIframe.height = '100%';
