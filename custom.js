@@ -18,6 +18,7 @@ overlayBtn.addEventListener('click', function() {
 
     if (currentstreamer === 'kangjoel') {
       const newIframe = document.createElement('iframe');
+      changeIframeSource(`https://kick.com/${currentstreamer}/chatroom`);
       newIframe.src = `https://player.kick.com/kangjoel`;
       newIframe.width = '100%';
       newIframe.height = '100%';
