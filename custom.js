@@ -15,7 +15,6 @@ overlayBtn.addEventListener('click', function() {
     currentstreamer = userInput;
     retryLoad();
     player.poster('https://i.imgur.com/jhaOd2e.png');
-    changeIframeSource(`https://kick.com/${currentstreamer}/chatroom`);
 
     if (currentstreamer === 'kangjoel') {
       const newIframe = document.createElement('iframe');
@@ -26,6 +25,7 @@ overlayBtn.addEventListener('click', function() {
       const videoContainer = document.getElementById('video-container');
       const existingVideo = document.getElementById('amazon-ivs-videojs');
       videoContainer.replaceChild(newIframe, existingVideo);
+      chatIframe.src = `https://kick.com/${currentstreamer}/chatroom`;
     } else {
       changeIframeSource(`https://kick.com/${currentstreamer}/chatroom`);
     }
