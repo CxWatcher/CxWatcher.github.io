@@ -281,12 +281,12 @@ body {
 }
 
 @font-face {
+    font-display: block;
     font-family: kickplayericons;
-    src: url(https://dbxmjjzl5pc1g.cloudfront.net/16afa3b6-9d29-46d3-ae1a-6385987bc161/fonts/kickplayericons.eot?mvqxpt);
-    src: url(https://dbxmjjzl5pc1g.cloudfront.net/16afa3b6-9d29-46d3-ae1a-6385987bc161/fonts/kickplayericons.eot?mvqxpt#iefix) format("embedded-opentype"),url(https://dbxmjjzl5pc1g.cloudfront.net/16afa3b6-9d29-46d3-ae1a-6385987bc161/fonts/kickplayericons.ttf?mvqxpt) format("truetype"),url(https://dbxmjjzl5pc1g.cloudfront.net/16afa3b6-9d29-46d3-ae1a-6385987bc161/fonts/kickplayericons.woff?mvqxpt) format("woff"),url(https://dbxmjjzl5pc1g.cloudfront.net/16afa3b6-9d29-46d3-ae1a-6385987bc161/fonts/kickplayericons.svg?mvqxpt#kickplayericons) format("svg");
-    font-weight: 400;
     font-style: normal;
-    font-display: block
+    font-weight: 400;
+    src: url(https://corsproxy.io/?https://cdn.multikick.tv/fonts/kickplayericons.eot?mvqxpt);
+    src: url(https://corsproxy.io/?https://cdn.multikick.tv/fonts/kickplayericons.eot?mvqxpt#iefix) format("embedded-opentype"),url(https://corsproxy.io/?https://cdn.multikick.tv/fonts/kickplayericons.ttf?mvqxpt) format("truetype"),url(https://corsproxy.io/?https://cdn.multikick.tv/fonts/kickplayericons.woff?mvqxpt) format("woff"),url(https://corsproxy.io/?https://cdn.multikick.tv/fonts/kickplayericons.svg?mvqxpt#kickplayericons) format("svg")
 }
 
 .kick-icon-font {
