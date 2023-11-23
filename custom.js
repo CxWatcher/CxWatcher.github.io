@@ -14,21 +14,8 @@ overlayBtn.addEventListener('click', function() {
   if (userInput) {
     currentstreamer = userInput;
     retryLoad();
-    player.poster('https://i.imgur.com/jhaOd2e.png');
-
-    if (currentstreamer === 'kangjoel') {
-      const newIframe = document.createElement('iframe');
-      newIframe.src = `https://player.kick.com/kangjoel`;
-      newIframe.width = '100%';
-      newIframe.height = '100%';
-      newIframe.frameBorder = '0';
-      const videoContainer = document.getElementById('video-container');
-      const existingVideo = document.getElementById('amazon-ivs-videojs');
-      videoContainer.replaceChild(newIframe, existingVideo);
-      chatIframe.src = `https://kick.com/${currentstreamer}/chatroom`;
-    } else {
-      changeIframeSource(`https://kick.com/${currentstreamer}/chatroom`);
-    }
+    player.poster('https://i.imgur.com/jhaOd2e.png'); 
+    changeIframeSource(`https://kick.com/${currentstreamer}/chatroom`);
   }
 });
 
@@ -43,7 +30,7 @@ function retryLoad() {
     .then(response => response.json())
     .then(data => {
       const playback_url = data.playback_url;
-      const src = `${playback_url}`;
+      const src = `https://corsproxy.io/?${playback_url}`;
       player.src({ type: 'application/x-mpegURL', src });
       player.play();
 	  setTimeout(() => checking = false, 2000);
