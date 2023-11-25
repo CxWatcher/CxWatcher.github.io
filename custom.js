@@ -14,7 +14,7 @@ overlayBtn.addEventListener('click', function() {
   if (userInput) {
     currentstreamer = userInput;
     retryLoad();
-    player.poster('https://i.imgur.com/jhaOd2e.png'); 
+    player.poster('https://i.imgur.com/G2zhTfr.png'); 
     changeIframeSource(`https://kick.com/${currentstreamer}/chatroom`);
   }
 });
