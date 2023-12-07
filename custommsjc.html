@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Multi-Kick Viewer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="app.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.14.3/video-js.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.14.3/video.min.js"></script>
+    <script src="https://player.live-video.net/1.18.0/amazon-ivs-videojs-tech.min.js"></script>
+<link href="videojs-watermark.css" rel="stylesheet">
+<script src="videojs-watermark.js"></script>
+<script src="https://player.live-video.net/1.18.0/amazon-ivs-quality-plugin.min.js"></script>
+<link rel="stylesheet" type="text/css" href="lit.css">
+
+<style>
+
+</style>
+  </head>
+  <body>
+    <div id="video-container">
+<div id="overlay-two">
+  <img id="fullscreen-button" src="https://i.imgur.com/Zo9GjgJ.png" alt="Fullscreen button" onclick="toggleFullscreen()" />
+</div>
+  <video id="amazon-ivs-videojs" class="video-js vjs-4-3 vjs-big-play-centered" poster="https://i.imgur.com/G2zhTfr.png" controls autoplay  playsinline></video>
+
+    </div>
+  <div id="chat-container">
+    <iframe id="chat" src="https://kick.com/iceposeidon/chatroom" referrer="https://kick.com/slightlyhomeless"></iframe>
+  </div>
+<div class="overlay">
+  <img src="https://i.imgur.com/DpIbA7m.png" alt="Click me" class="overlay-btn">
+</div>
+<script src="ice.js"></script>
+<script src="sjc.js"></script>
+<script>
+const overlayBtn = document.querySelector('.overlay-btn');
+const overlay = document.querySelector('.overlay');
+
+overlayBtn.addEventListener('click', () => {
+  overlay.classList.toggle('show');
+});
+	
+
+</script>
+</body>
+</html>
