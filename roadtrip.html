@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cx Watcher</title>
+   <style>
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.row {
+  display: flex;
+  flex-wrap: nowrap; /* prevent wrapping of columns */
+  height: 100%;
+}
+
+.col {
+  flex: 1; /* take up equal space in the row */
+  height: 100%;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.col iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+<link rel="icon" href="favicon.ico">
+	  
+    </style>
+  </head>
+<body>
+  <div class="row">
+    <div class="col">
+      <iframe src="customm.html" scrolling="no" frameborder="0" autoplay></iframe>
+    </div>
+    <div class="col">
+      <iframe src="custommsjc.html" scrolling="no" frameborder="0" autoplay></iframe>
+    </div>
+  </div>
+  <script type="text/javascript">
+    var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    var isMobile = screenWidth < 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+    if (isMobile) {
+      alert("Sorry, this website is not supported on mobile devices.");
+    }
+  </script>
+</body>
+</html>
