@@ -50,7 +50,7 @@ function changeIframeSource(newSrc) {
 }
 
 function retryLoad() {
-  fetch(`https://kick.com/api/v2/channels/sam`)
+  fetch(`https://kick.com/api/v2/channels/iceposeidon`)
     .then(response => response.json())
     .then(data => {
       const playback_url = data.playback_url;
