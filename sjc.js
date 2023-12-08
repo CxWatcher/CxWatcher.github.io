@@ -7,7 +7,6 @@
   var susBtn = document.getElementById('sus')
   var shoBtn = document.getElementById('sho')
   let currentstreamer = "sjc_official";
-  let checking = false;
 
 overlayBtn.addEventListener('click', function() {
   const userInput = prompt('Enter a kick channel:');
@@ -37,28 +36,3 @@ function retryLoad() {
     })
     .catch(error => console.error(error));
 }
-function loadWithDelay() {
-  setTimeout(function() {
-    retryLoad();
-  }, 500);
-}
-
-function checkPlayerState() {
-  if (!checking && player.readyState() === 0) {
-    console.log(`Stream Offline, Trying to reconnect to ${currentstreamer}`);
-    checking = true;
-    loadWithDelay();
-  }
-}
-
-player.on('pause', function() {
-  console.log(`Player Paused`);
-  checking = true; 
-});
-
-player.on('play', function() {
-  console.log(`Player Playing`);
-  checking = false; 
-});
-
-setInterval(checkPlayerState, 5000);
