@@ -1,4 +1,4 @@
-
+ let checking = false;
   const video = document.getElementById('amazon-ivs-videojs');
   registerIVSTech(videojs);
   registerIVSQualityPlugin(videojs);
