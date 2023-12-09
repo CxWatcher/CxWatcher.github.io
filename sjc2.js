@@ -1,4 +1,4 @@
- let checking = false;
+ let checkingg = false;
   const video = document.getElementById('amazon-ivs-videojs');
   registerIVSTech(videojs);
   registerIVSQualityPlugin(videojs);
@@ -57,7 +57,7 @@ function retryLoad() {
       const src = `${playback_url}`;
       player.src({ type: 'application/x-mpegURL', src });
       player.play();
-    setTimeout(() => checking = false, 2000);
+    setTimeout(() => checkingg = false, 2000);
     })
     .catch(error => console.error(error));
 }
@@ -68,21 +68,21 @@ function loadWithDelay() {
 }
 
 function checkPlayerState() {
-  if (!checking && player.readyState() === 0) {
+  if (!checkingg && player.readyState() === 0) {
     console.log(`Stream Offline, Trying to reconnect to ${currentstreamer}`);
-    checking = true;
+    checkingg = true;
     loadWithDelay();
   }
 }
 
 player.on('pause', function() {
   console.log(`Player Paused`);
-  checking = true;
+  checkingg = true;
 });
 
 player.on('play', function() {
   console.log(`Player Playing`);
-  checking = false;
+  checkingg = false;
 });
 
 setInterval(checkPlayerState, 5000);
