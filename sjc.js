@@ -32,7 +32,7 @@ function retryLoad() {
       const src = `https://corsproxy.io/?${playback_url}`;
       player.src({ type: 'application/x-mpegURL', src });
       player.play();
-	  setTimeout(() => checking = false, 2000);
+	  setTimeout(() => checkingg = false, 2000);
     })
     .catch(error => console.error(error));
 }
