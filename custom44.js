@@ -23,7 +23,7 @@ const player = videojs("amazon-ivs-videojs", {
   
   player.src({ type: 'application/x-mpegURL', src: '1' });
 
-  fetch('https://kick.com/api/v2/channels/garydavid')
+  fetch('https://kick.com/api/v2/channels/kangjoel')
     .then(response => response.json())
     .then(data => {
       const playback_url = data.playback_url;
@@ -50,7 +50,7 @@ function changeIframeSource(newSrc) {
 }
 
 function retryLoad() {
-  fetch(`https://kick.com/api/v2/channels/garydavid`)
+  fetch(`https://kick.com/api/v2/channels/kangjoel`)
     .then(response => response.json())
     .then(data => {
       const playback_url = data.playback_url;
