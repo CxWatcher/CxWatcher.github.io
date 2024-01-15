@@ -6,7 +6,7 @@
   var pakBtn = document.getElementById('DeePak');
   var susBtn = document.getElementById('sus')
   var shoBtn = document.getElementById('sho')
-  let currentstreamer = "garydavid";
+  let currentstreamer = "kimmee";
 
 overlayBtn.addEventListener('click', function() {
   const userInput = prompt('Enter a kick channel:');
