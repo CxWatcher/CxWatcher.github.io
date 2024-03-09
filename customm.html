@@ -17,9 +17,10 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 40vh; /* Adjust the height as needed */
-      z-index: 1; /* Ensure the chat is above the video and overlay */
-      overflow: hidden; /* Hide overflow content */
+      height: 40vh;
+      z-index: 1; 
+      overflow: hidden; 
+      pointer-events: none;
     }
 
     #chat {
@@ -32,9 +33,6 @@
     }
  .vjs-control-bar {
       z-index: 4;
-    }
-.vjs-poster {
-      z-index: 4; 
     }
 </style>
   </head>
