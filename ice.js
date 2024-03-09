@@ -75,11 +75,13 @@ function checkPlayerState() {
   }
 }
 
+
     let isResizing = false;
     let lastY = 0;
 
     const chatBar = document.getElementById('chat-bar');
     const chatContainer = document.getElementById('chat-container');
+    const chatIframe = document.getElementById('chat');
 
     chatBar.addEventListener('mousedown', (e) => {
       isResizing = true;
@@ -91,12 +93,15 @@ function checkPlayerState() {
       const delta = e.clientY - lastY;
       lastY = e.clientY;
 
-      chatContainer.style.height = `${Math.max(200, chatContainer.clientHeight + delta)}px`;
+      const newHeight = Math.max(200, chatContainer.clientHeight + delta);
+      chatContainer.style.height = `${newHeight}px`;
+      chatIframe.style.height = `${newHeight - 10}px`;
     });
 
     document.addEventListener('mouseup', () => {
       isResizing = false;
     });
+  </script>
 
 player.on('pause', function() {
   console.log(`Player Paused`);
