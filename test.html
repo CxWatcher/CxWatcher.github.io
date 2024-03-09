@@ -1,10 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Multi-Kick Viewer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="app.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.14.3/video-js.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.14.3/video.min.js"></script>
+    <script src="https://player.live-video.net/1.18.0/amazon-ivs-videojs-tech.min.js"></script>
+
+<script src="https://player.live-video.net/1.18.0/amazon-ivs-quality-plugin.min.js"></script>
+<link rel="stylesheet" type="text/css" href="lit.css">
+
+<style>
     #chat-container {
       position: absolute;
       top: 0;
       left: 0;
       width: 30%; /* Adjust the width as needed */
       height: 100vh;
-      background-color: black;
       z-index: 2; /* Ensure the chat is above the video and overlay */
       overflow: hidden; /* Hide overflow content */
     }
@@ -14,3 +27,33 @@
       height: 100%;
       border: none;
     }
+</style>
+  </head>
+  <body>
+    <div id="video-container">
+<div id="overlay-two">
+  <img id="fullscreen-button" src="https://i.imgur.com/Zo9GjgJ.png" alt="Fullscreen button" onclick="toggleFullscreen()" />
+</div>
+  <video id="amazon-ivs-videojs" class="video-js vjs-4-3 vjs-big-play-centered" poster="https://i.imgur.com/G2zhTfr.png" controls autoplay  playsinline></video>
+
+    </div>
+  <div id="chat-container">
+    <iframe id="chat" src="https://tools.kick.cx/chat?user=iceposeidon&animate=true&badges=true&commands=true&bots=true&textsize=15px" referrer="https://tools.kick.cx"></iframe>
+  </div>
+<div class="overlay">
+  <img src="https://i.imgur.com/DpIbA7m.png" alt="Click me" class="overlay-btn">
+</div>
+<script src="ice.js"></script>
+<script src="custom.js"></script>
+<script>
+const overlayBtn = document.querySelector('.overlay-btn');
+const overlay = document.querySelector('.overlay');
+
+overlayBtn.addEventListener('click', () => {
+  overlay.classList.toggle('show');
+});
+	
+
+</script>
+</body>
+</html>
