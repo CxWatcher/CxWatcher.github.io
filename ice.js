@@ -75,33 +75,6 @@ function checkPlayerState() {
   }
 }
 
-
-    let isResizing = false;
-    let lastY = 0;
-
-    const chatBar = document.getElementById('chat-bar');
-    const chatContainer = document.getElementById('chat-container');
-    const chatIframe = document.getElementById('chat');
-
-    chatBar.addEventListener('mousedown', (e) => {
-      isResizing = true;
-      lastY = e.clientY;
-    });
-
-    document.addEventListener('mousemove', (e) => {
-      if (!isResizing) return;
-      const delta = e.clientY - lastY;
-      lastY = e.clientY;
-
-      const newHeight = Math.max(200, chatContainer.clientHeight + delta);
-      chatContainer.style.height = `${newHeight}px`;
-      chatIframe.style.height = `${newHeight - 10}px`;
-    });
-
-    document.addEventListener('mouseup', () => {
-      isResizing = false;
-    });
-
 player.on('pause', function() {
   console.log(`Player Paused`);
   checking = true;
