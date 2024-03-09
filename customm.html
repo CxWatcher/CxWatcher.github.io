@@ -16,16 +16,22 @@
       position: absolute;
       top: 0;
       left: 0;
-      width: 30%; /* Adjust the width as needed */
+      width: 30%; 
       height: 100vh;
-      z-index: 2; /* Ensure the chat is above the video and overlay */
-      overflow: hidden; /* Hide overflow content */
+      z-index: 2; 
+      overflow: hidden; 
     }
 
     #chat {
       width: 100%;
-      height: 100%;
+      height: calc(100% - 10px);
       border: none;
+    }
+  #chat-bar {
+      width: 100%;
+      height: 10px;
+      background-color: #333;
+      cursor: ns-resize;
     }
 </style>
   </head>
@@ -38,6 +44,7 @@
 
     </div>
   <div id="chat-container">
+  <div id="chat-bar"></div> 
     <iframe id="chat" src="https://tools.kick.cx/chat?user=iceposeidon&animate=true&badges=true&commands=true&bots=true&textsize=15px" referrer="https://tools.kick.cx"></iframe>
   </div>
 <div class="overlay">
