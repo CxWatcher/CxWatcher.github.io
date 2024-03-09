@@ -101,7 +101,6 @@ function checkPlayerState() {
     document.addEventListener('mouseup', () => {
       isResizing = false;
     });
-  </script>
 
 player.on('pause', function() {
   console.log(`Player Paused`);
