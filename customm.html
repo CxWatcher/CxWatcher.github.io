@@ -18,13 +18,11 @@
       left: 0;
       width: 100%;
       height: 40vh;
-      z-index: 99; 
+      z-index: 1; 
       overflow: hidden; 
       pointer-events: none;
     }
-#video-container {
-  z-index: 1;
-}
+
     #chat {
       width: 100%;
       height: 100%;
@@ -56,6 +54,7 @@
 <script src="ice.js"></script>
 <script src="custom.js"></script>
 <script>
+const overlayBtn = document.querySelector('.overlay-btn');
 const overlay = document.querySelector('.overlay');
 
 overlayBtn.addEventListener('click', () => {
