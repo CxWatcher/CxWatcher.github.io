@@ -42,46 +42,25 @@
   <img id="fullscreen-button" src="https://i.imgur.com/Zo9GjgJ.png" alt="Fullscreen button" onclick="toggleFullscreen()" />
 </div>
   <video id="amazon-ivs-videojs" class="video-js vjs-4-3 vjs-big-play-centered" poster="https://i.imgur.com/G2zhTfr.png" controls autoplay  playsinline></video>
+  <div id="chat-container">
+  <div id="chat-bar"></div> 
+    <iframe id="chat" src="https://tools.kick.cx/chat?user=iceposeidon&animate=true&badges=true&commands=true&bots=true&textsize=15px" referrer="https://tools.kick.cx"></iframe>
+  </div>
+    </div>
 <div class="overlay">
   <img src="https://i.imgur.com/DpIbA7m.png" alt="Click me" class="overlay-btn">
 </div>
 <script src="ice.js"></script>
 <script src="custom.js"></script>
 <script>
+const overlayBtn = document.querySelector('.overlay-btn');
+const overlay = document.querySelector('.overlay');
+
 overlayBtn.addEventListener('click', () => {
   overlay.classList.toggle('show');
 });
 	
-  function onVjsTechAvailable() {
-    var vjsTechElement = document.querySelector('.vjs-tech');
 
-    var chatContainerDiv = document.createElement('div');
-    chatContainerDiv.id = 'chat-container';
-
-    vjsTechElement.appendChild(chatContainerDiv);
-
-    var chatBarDiv = document.createElement('div');
-    chatBarDiv.id = 'chat-bar';
-    chatContainerDiv.appendChild(chatBarDiv);
-
-    var chatIframe = document.createElement('iframe');
-    chatIframe.id = 'chat';
-    chatIframe.src = 'https://tools.kick.cx/chat?user=iceposeidon&animate=true&badges=true&commands=true&bots=true&textsize=15px';
-    chatIframe.referrer = 'https://tools.kick.cx';
-    chatContainerDiv.appendChild(chatIframe);
-  }
-
-  var observer = new MutationObserver(function (mutations) {
-    mutations.forEach(function (mutation) {
-      if (document.querySelector('.vjs-tech')) {
-        observer.disconnect();
-        onVjsTechAvailable();
-      }
-    });
-  });
-
-
-  observer.observe(document.body, { childList: true, subtree: true });
 </script>
 </body>
 </html>
