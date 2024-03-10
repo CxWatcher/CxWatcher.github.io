@@ -62,5 +62,37 @@ overlayBtn.addEventListener('click', () => {
 	
 
 </script>
+<script>
+  function onVjsTechAvailable() {
+    var vjsTechElement = document.querySelector('.vjs-tech');
+
+    var chatContainerDiv = document.createElement('div');
+    chatContainerDiv.id = 'chat-container';
+
+    vjsTechElement.appendChild(chatContainerDiv);
+
+    var chatBarDiv = document.createElement('div');
+    chatBarDiv.id = 'chat-bar';
+    chatContainerDiv.appendChild(chatBarDiv);
+
+    var chatIframe = document.createElement('iframe');
+    chatIframe.id = 'chat';
+    chatIframe.src = 'https://tools.kick.cx/chat?user=iceposeidon&animate=true&badges=true&commands=true&bots=true&textsize=15px';
+    chatIframe.referrer = 'https://tools.kick.cx';
+    chatContainerDiv.appendChild(chatIframe);
+  }
+
+  var observer = new MutationObserver(function (mutations) {
+    mutations.forEach(function (mutation) {
+      if (document.querySelector('.vjs-tech')) {
+        observer.disconnect();
+        onVjsTechAvailable();
+      }
+    });
+  });
+
+
+  observer.observe(document.body, { childList: true, subtree: true });
+</script>
 </body>
 </html>
