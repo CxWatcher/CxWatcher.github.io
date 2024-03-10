@@ -65,14 +65,10 @@ overlayBtn.addEventListener('click', () => {
   document.addEventListener('DOMContentLoaded', function () {
     var videoElement = document.getElementById('amazon-ivs-videojs');
     var chatContainer = document.getElementById('chat-container');
-
-    // Listen for the fullscreenchange event
     videoElement.addEventListener('fullscreenchange', function () {
       if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement) {
-        // Video is in fullscreen, move the chat container after the video
         document.body.appendChild(chatContainer);
       } else {
-        // Video is not in fullscreen, move the chat container back to its original position
         document.getElementById('video-container').appendChild(chatContainer);
       }
     });
