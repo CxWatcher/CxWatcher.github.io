@@ -59,21 +59,11 @@
 <script>
 const overlay = document.querySelector('.overlay');
 
-overlayBtn.addEventListener('click', () => {
-  overlay.classList.toggle('show');
-});
-  document.addEventListener('DOMContentLoaded', function () {
-    var videoElement = document.getElementById('amazon-ivs-videojs');
-    var chatContainer = document.getElementById('chat-container');
-
-    videoElement.addEventListener('fullscreenchange', function () {
-      if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement) {
-        chatContainer.style.zIndex = '9999';
-      } else {
-        chatContainer.style.zIndex = '1';
-      }
-    });
-  });
+document.addEventListener("DOMContentLoaded", function () {
+   var videoContainer = document.querySelector(".vjs-tech");
+   var chatContainer = document.getElementById("chat-container");
+   videoContainer.parentNode.insertBefore(chatContainer, videoContainer.nextSibling);
+        });
 </script>
 
 </script>
