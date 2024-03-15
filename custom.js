@@ -42,7 +42,13 @@ function loadWithDelay() {
     retryLoad();
   }, 500);
 }
+function reloadChat() {
+ const chatFrame = document.getElementById('chat');
+ chatFrame.src = chatFrame.src;
+}
 
+    // Set interval to reload chat every 30 minutes (30 * 60 * 1000 milliseconds)
+    setInterval(reloadChat, 30 * 60 * 1000);
 function checkPlayerState() {
   if (!checking && player.readyState() === 0) {
     console.log(`Stream Offline, Trying to reconnect to ${currentstreamer}`);
@@ -62,3 +68,4 @@ player.on('play', function() {
 });
 
 setInterval(checkPlayerState, 5000);
+setInterval(reloadChat, 30 * 60 * 1000);
