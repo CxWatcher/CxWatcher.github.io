@@ -43,7 +43,7 @@ function loadWithDelay() {
   }, 500);
 }
 function reloadChat() {
- const chatFrame = document.getElementById('chat');
+ const chatFrame = document.getElementById('chat2');
  chatFrame.src = chatFrame.src;
 }
 
