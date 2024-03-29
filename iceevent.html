@@ -69,7 +69,16 @@ const overlay = document.querySelector('.overlay');
 overlayBtn.addEventListener('click', () => {
   overlay.classList.toggle('show');
 });
-	
+
+document.addEventListener("DOMContentLoaded", function() {
+    const amazonIvsDiv = document.getElementById("amazon-ivs-videojs");
+    const chatContainerDiv = document.getElementById("chat-container2");
+
+    if (amazonIvsDiv && chatContainerDiv) {
+        amazonIvsDiv.appendChild(chatContainerDiv);
+    }
+});
+
 
 </script>
 </body>
