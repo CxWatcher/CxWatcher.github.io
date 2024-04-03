@@ -15,7 +15,7 @@ overlayBtn.addEventListener('click', function() {
     currentstreamer = userInput;
     retryLoad();
     player.poster('https://i.imgur.com/G2zhTfr.png'); 
-    changeIframeSource(`https://tools.kick.cx/chat?user=${currentstreamer}&animate=true&badges=true&commands=true&bots=true&textsize=15px`);
+    changeIframeSource(`https://cxwatcher.github.io/chat?user=${currentstreamer}&animate=true&badges=true&commands=true&bots=true&textsize=15px`);
   }
 });
 
