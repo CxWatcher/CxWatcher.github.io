@@ -19,7 +19,6 @@ overlayBtn.addEventListener('click', function() {
   }
 });
 
-
 function changeIframeSource(newSrc) {
   chatIframe.src = newSrc;
   chatIframe.contentWindow.location.reload(true);
