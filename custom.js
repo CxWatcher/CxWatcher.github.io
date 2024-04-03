@@ -15,13 +15,12 @@ overlayBtn.addEventListener('click', function() {
     currentstreamer = userInput;
     retryLoad();
     player.poster('https://i.imgur.com/G2zhTfr.png'); 
-    changeIframeSource(`https://cxwatcher.github.io/chat?user=${currentstreamer}&animate=true&badges=true&commands=true&bots=true&textsize=15px`);
+    changeIframeSource(`https://cxwatcher.github.io/chat?user=userInput&animate=true&badges=true&commands=true&bots=true&textsize=15px`);
   }
 });
 
 function changeIframeSource(newSrc) {
   chatIframe.src = newSrc;
-  chatIframe.contentWindow.location.reload(true);
 }
 
 function retryLoad() {
