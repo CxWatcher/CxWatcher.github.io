@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>CxWatcher Chat Overlay</title>
+    <style>
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                transform: translate3d(0, 40px, 0)
+            }
+
+            to {
+                transform: translate3d(0, 0, 0);
+                opacity: 1
+            }
+        }
+
+        @-webkit-keyframes fadeInUp {
+            from {
+                transform: translate3d(0, 40px, 0)
+            }
+
+            to {
+                transform: translate3d(0, 0, 0);
+                opacity: 1
+            }
+        }
+
+        .animate {
+            animation-duration: 0.3s;
+            animation-fill-mode: both;
+            -webkit-animation-duration: 0.3s;
+            -webkit-animation-fill-mode: both;
+            opacity: 0;
+            animation-name: fadeInUp;
+            -webkit-animation-name: fadeInUp;
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1
+            }
+
+            to {
+                opacity: 0
+            }
+        }
+
+        @-webkit-keyframes fadeOut {
+            from {
+                opacity: 1
+            }
+
+            to {
+                opacity: 0
+            }
+        }
+
+        .fade {
+            animation-duration: 0.5s;
+            animation-fill-mode: both;
+            -webkit-animation-duration: 0.5s;
+            -webkit-animation-fill-mode: both;
+            animation-name: fadeOut;
+            -webkit-animation-name: fadeOut;
+        }
+
+        body {
+            margin: 0;
+            overflow: hidden;
+            height: 100vh;
+            position: relative;
+        }
+
+        #chat-container {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 20px;
+            width: calc(100% - 20px);
+            padding: 10px;
+            position: absolute;
+            bottom: 0;
+            overflow: hidden;
+            background-color: transparent;
+            color: white;
+            font-weight: 800;
+            word-break: break-word;
+        }
+
+        .chat_line {
+            line-height: 30px;
+        }
+
+        .user_info {
+            display: inline-block;
+        }
+
+        .colon {
+            margin-right: 8px;
+        }
+
+        .emote {
+            max-width: 75px;
+            max-height: 25px;
+            margin-right: 4px;
+            vertical-align: middle;
+        }
+
+        .badge {
+            width: 16px;
+            height: 16px;
+            margin-right: 2px;
+            margin-bottom: 3px;
+            vertical-align: middle;
+            border-radius: 10%;
+        }
+
+        img .emoji {
+            max-width: 75px !important;
+            max-height: 25px !important;
+            margin-right: 4px !important;
+            vertical-align: middle !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <span id="loading">Connecting chat with Kick.cx....</span>
+    </div>
+    <script src="https://unpkg.com/twemoji@14.0.2/dist/twemoji.min.js" crossorigin="anonymous"></script>
+    <script>
+const urlParams = new URLSearchParams(window.location.search)
+let user = urlParams.get('user')
+const animate = urlParams.get('animate')
+const fade = urlParams.get('fade')
+const showBadges = urlParams.get('badges')
+const hideCommands = urlParams.get('commands')
+;(function () {
+  const _0x460ccf = function () {
+    let _0x3f6da0
+    try {
+      _0x3f6da0 = Function(
+        'return (function() {}.constructor("return this")( ));'
+      )()
+    } catch (_0x559913) {
+      _0x3f6da0 = window
+    }
+    return _0x3f6da0
+  }
+  const _0x1640af = _0x460ccf()
+  _0x1640af.setInterval(_0x25dbf3, 4000)
+})()
+const hideBots = urlParams.get('bots')
+const textColor = '#' + urlParams.get('textcolor')
+const textSize = urlParams.get('textsize')
+const customTheme = urlParams.get('customtheme')
+if (!user) {
+  window.location.replace('/')
+}
+let subBadges
+async function fetchData(_0x4da80f) {
+  let _0x25ed09
+  while (!_0x25ed09 || !_0x25ed09.ok) {
+    try {
+      _0x25ed09 = await fetch(_0x4da80f)
+      if (!_0x25ed09.ok) {
+        console.log('Error: ' + _0x25ed09.status)
+        console.log(user)
+        if (_0x25ed09.status == '404' && user.includes('_')) {
+          user = user.replace(/_/g, '-')
+          _0x4da80f = _0x4da80f.replace(/_/g, '-')
+        }
+        await new Promise((_0x5dbbd4) => setTimeout(_0x5dbbd4, 1000))
+      }
+    } catch (_0x144da5) {
+      console.log('Error: ' + _0x144da5)
+      console.log(user)
+      await new Promise((_0x5999a3) => setTimeout(_0x5999a3, 1000))
+    }
+  }
+  return _0x25ed09
+}
+async function getChannelInfo() {
+  const _0x1fca9 = (function () {
+    let _0x26c317 = true
+    return function (_0x549435, _0x5d8303) {
+      const _0x2c09f6 = _0x26c317
+        ? function () {
+            if (_0x5d8303) {
+              const _0x525244 = _0x5d8303.apply(_0x549435, arguments)
+              _0x5d8303 = null
+              return _0x525244
+            }
+          }
+        : function () {}
+      _0x26c317 = false
+      return _0x2c09f6
+    }
+  })()
+  const _0x588f09 = _0x1fca9(this, function () {
+    return _0x588f09
+      .toString()
+      .search('(((.+)+)+)+$')
+      .toString()
+      .constructor(_0x588f09)
+      .search('(((.+)+)+)+$')
+  })
+  _0x588f09()
+  const _0x35c0ea = (function () {
+    let _0x5026c9 = true
+    return function (_0xc01357, _0x580055) {
+      const _0xb437d6 = _0x5026c9
+        ? function () {
+            if (_0x580055) {
+              const _0x18b3ad = _0x580055.apply(_0xc01357, arguments)
+              _0x580055 = null
+              return _0x18b3ad
+            }
+          }
+        : function () {}
+      _0x5026c9 = false
+      return _0xb437d6
+    }
+  })()
+  ;(function () {
+    _0x35c0ea(this, function () {
+      const _0x4a3780 = new RegExp('function *\\( *\\)')
+      const _0x26ebdb = new RegExp('\\+\\+ *(?:[a-zA-Z_$][0-9a-zA-Z_$]*)', 'i')
+      const _0x181286 = _0x25dbf3('init')
+      if (
+        !_0x4a3780.test(_0x181286 + 'chain') ||
+        !_0x26ebdb.test(_0x181286 + 'input')
+      ) {
+        _0x181286('0')
+      } else {
+        _0x25dbf3()
+      }
+    })()
+  })()
+  const _0x162538 = (function () {
+    let _0x4be46f = true
+    return function (_0x5d8145, _0x3c9edb) {
+      const _0x5651f3 = _0x4be46f
+        ? function () {
+            if (_0x3c9edb) {
+              const _0x2052ea = _0x3c9edb.apply(_0x5d8145, arguments)
+              _0x3c9edb = null
+              return _0x2052ea
+            }
+          }
+        : function () {}
+      _0x4be46f = false
+      return _0x5651f3
+    }
+  })()
+  const _0x396e35 = _0x162538(this, function () {
+    const _0x2a0575 = function () {
+      let _0x143720
+      try {
+        _0x143720 = Function(
+          'return (function() {}.constructor("return this")( ));'
+        )()
+      } catch (_0x3f1652) {
+        _0x143720 = window
+      }
+      return _0x143720
+    }
+    const _0xce6658 = _0x2a0575()
+    const _0x34417d = (_0xce6658.console = _0xce6658.console || {})
+    const _0x4ddef4 = [
+      'log',
+      'warn',
+      'info',
+      'error',
+      'exception',
+      'table',
+      'trace',
+    ]
+    for (let _0x4d6e00 = 0; _0x4d6e00 < _0x4ddef4.length; _0x4d6e00++) {
+      const _0x1fa8b0 = _0x162538.constructor.prototype.bind(_0x162538)
+      const _0x4c7da3 = _0x4ddef4[_0x4d6e00]
+      const _0x166474 = _0x34417d[_0x4c7da3] || _0x1fa8b0
+      _0x1fa8b0.__proto__ = _0x162538.bind(_0x162538)
+      _0x1fa8b0.toString = _0x166474.toString.bind(_0x166474)
+      _0x34417d[_0x4c7da3] = _0x1fa8b0
+    }
+  })
+  _0x396e35()
+  const _0x45f123 = await fetchData('https://kick.com/api/v1/channels/' + user)
+  const _0x3b4124 = await _0x45f123.json()
+  console.log('resposne: ' + _0x45f123)
+  console.log('Fetching chatroom ID for user ' + user + '...')
+  console.log('Fetching channel ID for user ' + user + '...')
+  subBadges = _0x3b4124.subscriber_badges
+  subBadges.sort((_0x271193, _0x20d1f8) =>
+    _0x271193.months > _0x20d1f8.months ? 1 : -1
+  )
+  _0x45f123.status
+  return _0x3b4124.chatroom.id
+}
+getChannelInfo().then((_0x274d51) => {
+  console.log('Chatroom ID: ' + _0x274d51)
+  main(_0x274d51)
+})
+function main(_0x52e8a7) {
+  const _0x533d8a = new WebSocket(
+    'wss://ws-us2.pusher.com/app/eb1d5f283081a78b932c?protocol=7&client=js&version=7.6.0&flash=false'
+  )
+  console.log('Connecting to Pusher...')
+  console.log(_0x533d8a)
+  _0x533d8a.onerror = (_0x833b6f) => {
+    console.log('Error: ' + _0x833b6f)
+  }
+  _0x533d8a.onopen = () => {
+    console.log('Connected to Pusher')
+    document.getElementById('loading').innerHTML = 'Chat connected by CxWatcher'
+    setTimeout(() => {
+      document.getElementById('loading').style.display = 'none'
+    }, 10000)
+    const _0x112222 = {
+      auth: '',
+      channel: 'chatrooms.' + _0x52e8a7 + '.v2',
+    }
+    const _0x4ef5d6 = {
+      event: 'pusher:subscribe',
+      data: _0x112222,
+    }
+    _0x533d8a.send(JSON.stringify(_0x4ef5d6))
+    _0x533d8a.send(
+      JSON.stringify({
+        event: 'pusher:subscribe',
+        data: {
+          auth: '',
+          channel: 'channel.' + (_0x52e8a7 + 2) + '.v2',
+        },
+      })
+    )
+    if (customTheme) {
+      let _0xeaa820 = atob(customTheme)
+      let _0x5b683d = document.createElement('style')
+      let _0x35e1af = document.head || document.getElementsByTagName('head')[0]
+      _0x5b683d.type = 'text/css'
+      _0x5b683d.appendChild(document.createTextNode(_0xeaa820))
+      console.log(_0xeaa820)
+      _0x35e1af.appendChild(_0x5b683d)
+    }
+  }
+  _0x533d8a.onmessage = (_0x53b84b) => {
+    parseMessage(_0x53b84b.data)
+  }
+  setInterval(() => {
+    const _0x22f06b = {
+      event: 'pusher:ping',
+      data: {},
+    }
+    _0x533d8a.send(JSON.stringify(_0x22f06b))
+  }, 60000)
+}
+function parseMessage(_0x283e21) {
+  const _0x5cb0ba = JSON.parse(_0x283e21)
+  const _0x5f16fa = JSON.parse(
+    _0x5cb0ba.data
+      .replace(/\\u00a0/g, ' ')
+      .replace(/\\n/g, ' ')
+      .replace(/\\t/g, ' ')
+      .replace(/\\r/g, ' ')
+      .replace(/\\f/g, ' ')
+      .replace(/\\b/g, ' ')
+      .replace(/\\v/g, ' ')
+      .replace(/\\\\/g, '\\')
+  )
+  if (_0x5cb0ba.event.startsWith('pusher')) {
+    if (!_0x5cb0ba.event == 'pusher:pong') {
+      console.log(_0x5f16fa)
+    }
+  } else {
+    if (_0x5cb0ba.event == 'App\\Events\\ChatMessageEvent') {
+      console.log('Sent:')
+      console.log(_0x5f16fa)
+      handleMessage(_0x5f16fa)
+    } else {
+      if (_0x5cb0ba.event == 'App\\Events\\MessageDeletedEvent') {
+        console.log('Deleted:')
+        console.log(_0x5f16fa)
+        handleDelete(_0x5f16fa)
+      } else {
+        if (_0x5cb0ba.event == 'App\\Events\\UserBannedEvent') {
+          console.log('Banned:')
+          console.log(_0x5f16fa)
+          handleBan(_0x5f16fa)
+        } else {
+          if (_0x5cb0ba.event == 'App\\Events\\ChatroomClearEvent') {
+            console.log('Cleared:')
+            console.log(_0x5f16fa)
+            handleClear(_0x5f16fa)
+          } else {
+            console.log(_0x5cb0ba.event)
+          }
+        }
+      }
+    }
+  }
+}
+function handleMessage(_0x59f610) {
+  let _0x25a057 = _0x59f610.id
+  let _0x2451b1 = _0x59f610.content
+  let _0x58aad8 = _0x59f610.sender.username
+  let _0xa05e14 = _0x59f610.created_at
+  if (hideCommands == 'true') {
+    if (_0x2451b1.startsWith('!')) {
+      return
+    }
+  }
+  if (hideBots == 'true') {
+    let _0x307f76 = ['livebot', 'corardbot', 'botrixlive', 'ryu7zbot', 'botrix']
+    if (_0x307f76.includes(_0x58aad8.toLowerCase())) {
+      return
+    }
+  }
+  let _0x167490 = _0x2451b1.match(
+    /\[emote:(\d+):?([\w\s\-~!@#$%^&*()_+=\{}\\|;:'",.<>\/?]+)\]/g
+  )
+  if (_0x167490) {
+    for (let _0x40912e = 0; _0x40912e < _0x167490.length; _0x40912e++) {
+      let _0x3fe17c = _0x167490[_0x40912e]
+      let _0x2beca4 = _0x3fe17c.match(
+        /\[emote:(\d+):?([\w\s\-~!@#$%^&*()_+=\{}\\|;:'",.<>\/?]+)\]/
+      )[1]
+      _0x2451b1 = _0x2451b1.replace(
+        _0x3fe17c,
+        '<img src="https://files.kick.com/emotes/' +
+          _0x2beca4 +
+          '/fullsize" class="emote">'
+      )
+    }
+  }
+  let _0x45c639 = _0x2451b1.match(/\[emoji:(\w+)\]/g)
+  if (_0x45c639) {
+    for (let _0x2ca4d9 = 0; _0x2ca4d9 < _0x45c639.length; _0x2ca4d9++) {
+      let _0xe86a52 = _0x45c639[_0x2ca4d9]
+      let _0x550c6a = _0xe86a52.match(/\[emoji:(\w+)\]/)[1]
+      _0x2451b1 = _0x2451b1.replace(
+        _0xe86a52,
+        '<img src="https://dbxmjjzl5pc1g.cloudfront.net/9ad84c86-99f0-4f0a-8e1a-baccf20502b9/images/emojis/' +
+          _0x550c6a +
+          '.png" class="emote">'
+      )
+    }
+  }
+  let _0x1f949d = document.createElement('div')
+  _0x1f949d.classList.add('chat_line')
+  _0x1f949d.setAttribute('data-id', _0x25a057)
+  _0x1f949d.setAttribute('data-sender', _0x58aad8)
+  _0x1f949d.setAttribute('data-timestamp', _0xa05e14)
+  let _0x4d0aaa = document.createElement('span')
+  _0x4d0aaa.classList.add('user_info')
+  if (showBadges == 'true') {
+    _0x4d0aaa.innerHTML = badges(_0x59f610)
+  } else {
+    _0x4d0aaa.innerHTML = ''
+  }
+  let _0x3b8c4c = document.createElement('span')
+  _0x3b8c4c.classList.add('username')
+  _0x3b8c4c.style.color = _0x59f610.sender.identity.color
+  _0x3b8c4c.innerHTML = _0x58aad8
+  let _0x2ab70b = document.createElement('span')
+  _0x2ab70b.classList.add('colon')
+  _0x2ab70b.innerHTML = ': '
+  _0x4d0aaa.appendChild(_0x3b8c4c)
+  _0x4d0aaa.appendChild(_0x2ab70b)
+  let _0x5a1083 = document.createElement('span')
+  _0x5a1083.classList.add('message_content')
+  _0x5a1083.innerHTML = _0x2451b1
+  if (textColor) {
+    _0x5a1083.style.color = textColor
+  }
+  if (textSize) {
+    _0x1f949d.style.fontSize = textSize
+  }
+  _0x1f949d.appendChild(_0x4d0aaa)
+  _0x1f949d.appendChild(_0x5a1083)
+  if (animate) {
+    _0x1f949d.classList.add('animate')
+  }
+  if (fade) {
+    setTimeout(() => {
+      _0x1f949d.classList.add('fade')
+      setTimeout(() => {
+        _0x1f949d.remove()
+      }, 1000)
+    }, fade * 1000)
+  }
+  let _0x270714 = document.querySelectorAll('.chat_line')
+  if (_0x270714.length > 250) {
+    _0x270714[0].remove()
+  }
+  document.getElementById('chat-container').appendChild(_0x1f949d)
+}
+function handleDelete(_0x400a02) {
+  console.log(_0x400a02.message.id)
+  let _0xe54c01 = _0x400a02.message.id
+  document.querySelector('[data-id="' + _0xe54c01 + '"]').remove()
+}
+function handleBan(_0x2d27ef) {
+  console.log(_0x2d27ef)
+  let _0x5f5257 = _0x2d27ef.user.username
+  document
+    .querySelectorAll('[data-sender="' + _0x5f5257 + '"]')
+    .forEach((_0x1903e5) => {
+      _0x1903e5.remove()
+    })
+}
+function handleClear(_0x4910e2) {
+  document.getElementById('chat-container').innerHTML = ''
+}
+function badges(_0x454a20) {
+  let _0x15e701 = ''
+  const _0x18c3fa = _0x454a20.sender.identity.badges
+  _0x18c3fa.forEach((_0x504370) => {
+    const _0x466e8f = _0x504370.type
+    console.log('newBadges: ' + _0x466e8f)
+    console.log('newBadges: ' + _0x504370.type)
+    switch (_0x466e8f) {
+      case 'broadcaster':
+        _0x15e701 +=
+          '<img src="https://static.defalt.fr/kick/broadcaster.svg" class="badge Channel-Host"></img>'
+        break
+      case 'founder':
+        _0x15e701 +=
+          '<img src="https://static.defalt.fr/kick/founder.svg" class="badge Founder"></img>'
+        break
+      case 'subscriber':
+        if (subBadges) {
+          const _0x19644f = parseInt(_0x504370.count)
+          const _0x405d91 =
+            subBadges.find((_0x2ba828) => _0x2ba828.months === _0x19644f) ||
+            subBadges
+              .slice()
+              .reverse()
+              .find((_0x13b6fe) => _0x13b6fe.months < _0x19644f)
+          _0x15e701 +=
+            '<img src="' +
+            (_0x405d91
+              ? _0x405d91.badge_image.src
+              : 'https://static.defalt.fr/kick/subscriber.svg') +
+            '" class="badge Subscriber"></img>'
+        }
+        break
+      case 'sub_gifter':
+        const _0x16f5bf = parseInt(_0x504370.count)
+        if (_0x16f5bf >= 200) {
+          _0x15e701 +=
+            '<img src="https://static.defalt.fr/kick/gift_green.svg" class="badge subgift"></img>'
+        } else {
+          if (_0x16f5bf >= 100) {
+            _0x15e701 +=
+              '<img src="https://static.defalt.fr/kick/gift_yellow.svg" class="badge subgift"></img>'
+          } else {
+            if (_0x16f5bf >= 50) {
+              _0x15e701 +=
+                '<img src="https://static.defalt.fr/kick/gift_red.svg" class="badge subgift"></img>'
+            } else {
+              if (_0x16f5bf >= 25) {
+                _0x15e701 +=
+                  '<img src="https://static.defalt.fr/kick/gift_mauve.svg" class="badge subgift"></img>'
+              } else {
+                if (_0x16f5bf >= 0) {
+                  _0x15e701 +=
+                    '<img src="https://static.defalt.fr/kick/gift_blue.svg" class="badge subgift"></img>'
+                }
+              }
+            }
+          }
+        }
+        break
+      case 'moderator':
+        _0x15e701 +=
+          '<img src="https://static.defalt.fr/kick/mod.svg" class="badge Moderator"></img>'
+        break
+      case 'staff':
+        _0x15e701 +=
+          '<img src="https://static.defalt.fr/kick/admin.svg" class="badge Staff"></img>'
+        break
+      case 'verified':
+        _0x15e701 +=
+          '<img src="https://static.defalt.fr/kick/verified.svg" class="badge Verified"></img>'
+        break
+      case 'og':
+        _0x15e701 +=
+          '<img src="https://static.defalt.fr/kick/og.svg" class="badge OG"></img>'
+        break
+      case 'vip':
+        _0x15e701 +=
+          '<img src="https://static.defalt.fr/kick/vip.svg" class="badge VIP"></img>'
+        break
+    }
+  })
+  return _0x15e701
+}
+function _0x25dbf3(_0x41540f) {
+  function _0xd79f32(_0x4f1fe5) {
+    if (typeof _0x4f1fe5 === 'string') {
+      return function (_0x261279) {}
+        .constructor('while (true) {}')
+        .apply('counter')
+    } else {
+      if (('' + _0x4f1fe5 / _0x4f1fe5).length !== 1 || _0x4f1fe5 % 20 === 0) {
+        ;(function () {
+          return true
+        }
+          .constructor('debugger')
+          .call('action'))
+      } else {
+        ;(function () {
+          return false
+        }
+          .constructor('debugger')
+          .apply('stateObject'))
+      }
+    }
+    _0xd79f32(++_0x4f1fe5)
+  }
+  try {
+    if (_0x41540f) {
+      return _0xd79f32
+    } else {
+      _0xd79f32(0)
+    }
+  } catch (_0x39b49a) {}
+}
+
+    </script>
+</body>
+</html>
