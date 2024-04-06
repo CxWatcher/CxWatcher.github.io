@@ -27,7 +27,7 @@ const player = videojs("amazon-ivs-videojs", {
     .then(response => response.json())
     .then(data => {
       const playback_url = data.playback_url;
-      const src = `${playback_url}`;
+      const src = `https://api.codetabs.com/v1/proxy/?quest=${playback_url}`;
       player.src({ type: 'application/x-mpegURL', src });
       player.play();
     })
