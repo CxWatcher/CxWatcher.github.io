@@ -285,8 +285,8 @@ body {
     font-family: kickplayericons;
     font-style: normal;
     font-weight: 400;
-    src: url(https://corsproxy.io/?https://cdn.multikick.tv/fonts/kickplayericons.eot?mvqxpt);
-    src: url(https://corsproxy.io/?https://cdn.multikick.tv/fonts/kickplayericons.eot?mvqxpt#iefix) format("embedded-opentype"),url(https://corsproxy.io/?https://cdn.multikick.tv/fonts/kickplayericons.ttf?mvqxpt) format("truetype"),url(https://corsproxy.io/?https://cdn.multikick.tv/fonts/kickplayericons.woff?mvqxpt) format("woff"),url(https://corsproxy.io/?https://cdn.multikick.tv/fonts/kickplayericons.svg?mvqxpt#kickplayericons) format("svg")
+    src: url(https://cxwatcher.github.io/kickplayericons.eot);
+    src: url(https://cxwatcher.github.io/kickplayericons.eot) format("embedded-opentype"),url(https://cxwatcher.github.io/kickplayericons.ttf) format("truetype"),url(https://cxwatcher.github.io/kickplayericons.woff) format("woff"),url(https://corsproxy.io/?https://cdn.multikick.tv/fonts/kickplayericons.svg?mvqxpt#kickplayericons) format("svg")
 }
 
 .kick-icon-font {
