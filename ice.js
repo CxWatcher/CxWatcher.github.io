@@ -33,14 +33,17 @@ const player = videojs("amazon-ivs-videojs", {
     })
     .catch(error => console.error(error));
 	
-	function toggleFullscreen() {
+function toggleFullscreen() {
   const videoContainer = document.getElementById('video-container');
   videoContainer.classList.toggle('fullscreen');
   const fullscreenButton = document.getElementById('fullscreen-button');
+  const chatContainer = document.getElementById('chat-container');
   if (videoContainer.classList.contains('fullscreen')) {
     fullscreenButton.src = 'https://i.imgur.com/bf2rPEp.png';
+    chatContainer.classList.remove('visible');
   } else {
     fullscreenButton.src = 'https://i.imgur.com/Zo9GjgJ.png';
+    chatContainer.classList.add('visible');
   }
 }
   
