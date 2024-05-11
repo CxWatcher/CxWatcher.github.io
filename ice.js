@@ -37,13 +37,13 @@ function toggleFullscreen() {
   const videoContainer = document.getElementById('video-container');
   videoContainer.classList.toggle('fullscreen');
   const fullscreenButton = document.getElementById('fullscreen-button');
-  const chatContainer = document.getElementById('chat-container');
+  const chatIframe = document.getElementById('chat');
   if (videoContainer.classList.contains('fullscreen')) {
     fullscreenButton.src = 'https://i.imgur.com/bf2rPEp.png';
-    chatContainer.classList.remove('visible');
+    chatIframe.style.display = 'none';
   } else {
     fullscreenButton.src = 'https://i.imgur.com/Zo9GjgJ.png';
-    chatContainer.classList.add('visible');
+    chatIframe.style.display = 'block';
   }
 }
   
