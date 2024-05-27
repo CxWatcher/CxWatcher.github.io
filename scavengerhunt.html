@@ -12,7 +12,11 @@
 										 Never miss a moment and have multiple angles!">
 <meta property="og:image" content="https://i.imgur.com/DpIbA7m.png">
 <meta property="og:url" content="">
-    <style>
+   <style>
+        * {
+            box-sizing: border-box;
+        }
+
         html, body {
             margin: 0;
             padding: 0;
@@ -28,10 +32,10 @@
         }
 
         .col {
-            flex: 1;
+            flex: 1 0 33.3333%;
             height: 100%;
             padding: 0;
-            box-sizing: border-box;
+            overflow: hidden;
         }
 
         .col iframe {
@@ -40,6 +44,7 @@
             border: none;
             margin: 0;
             padding: 0;
+            display: block;
         }
     </style>
     <link rel="icon" href="favicon.ico">
