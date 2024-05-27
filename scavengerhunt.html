@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AC7 Tour - Cx Watcher</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="app.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.14.3/video-js.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.14.3/video.min.js"></script>
+    <script src="https://player.live-video.net/1.18.0/amazon-ivs-videojs-tech.min.js"></script>
+<script src="https://player.live-video.net/1.18.0/amazon-ivs-quality-plugin.min.js"></script>
+<meta property="og:title" content="Cx Watcher | Scavenger Hunt!">
+<meta property="og:description" content="Watch the top 6 streamers on the leaderboard!
+										 Never miss a moment and have multiple angles!">
+<meta property="og:image" content="https://i.imgur.com/DpIbA7m.png">
+<meta property="og:url" content="">
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.row {
+  display: flex;
+  flex-wrap: nowrap; /* prevent wrapping of columns */
+  height: 100%;
+}
+
+.col {
+  flex: 1; /* take up equal space in the row */
+  height: 100%;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.col iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+</style>
+  </head>
+<body>
+  <div class="row">
+    <div class="col">
+      <iframe src="ac7stream.html" scrolling="no" frameborder="0" autoplay></iframe>
+      <iframe src="ac7stream.html" scrolling="no" frameborder="0" autoplay></iframe>
+      <iframe src="ac7stream.html" scrolling="no" frameborder="0" autoplay></iframe>
+    </div>
+    <div class="col">
+      <iframe src="jjstream.html" scrolling="no" frameborder="0" autoplay></iframe>
+      <iframe src="jjstream.html" scrolling="no" frameborder="0" autoplay></iframe>
+      <iframe src="jjstream.html" scrolling="no" frameborder="0" autoplay></iframe>
+      
+    </div>
+  </div>
+  <script type="text/javascript">
+    var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    var isMobile = screenWidth < 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+    if (isMobile) {
+      alert("Sorry, this website is not supported on mobile devices.");
+    }
+  </script>
+</body>
+</html>
