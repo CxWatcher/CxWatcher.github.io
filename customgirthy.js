@@ -6,7 +6,7 @@
   var pakBtn = document.getElementById('DeePak');
   var susBtn = document.getElementById('sus')
   var shoBtn = document.getElementById('sho')
-  let currentstreamer = "bennymack";
+  let currentstreamer = "girthygorilla";
   let checking = false;
 
 overlayBtn.addEventListener('click', function() {
