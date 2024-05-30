@@ -66,3 +66,22 @@ if (!user) {
     loadWithDelay();
   }
 }
+function checkPlayerState() {
+  if (!checking && player.readyState() === 0) {
+    console.log(`Stream Offline, Trying to reconnect to ${currentstreamer}`);
+    checking = true;
+    loadWithDelay();
+  }
+}
+
+player.on('pause', function() {
+  console.log(`Player Paused`);
+  checking = true;
+});
+
+player.on('play', function() {
+  console.log(`Player Playing`);
+  checking = false;
+});
+
+setInterval(checkPlayerState, 5000);
