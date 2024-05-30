@@ -1,7 +1,6 @@
 const urlParams = new URLSearchParams(window.location.search);
 const user = urlParams.get('user');
 const video = document.getElementById('amazon-ivs-videojs');
-const player = videojs("amazon-ivs-videojs");
 
 if (!user) {
   document.body.innerHTML = '';
@@ -11,7 +10,6 @@ if (!user) {
   errorMessage.style.fontSize = '18px';
   document.body.appendChild(errorMessage);
 } else {
-
   registerIVSTech(videojs);
   registerIVSQualityPlugin(videojs);
   const player = videojs("amazon-ivs-videojs", {
@@ -67,23 +65,26 @@ if (!user) {
   if (player.readyState() === 0) {
     loadWithDelay();
   }
-}
+
+  let checking = false;
+
   function checkPlayerState() {
     if (!checking && player.readyState() === 0) {
-      console.log(`Stream Offline, Trying to reconnect to ${currentstreamer}`);
+      console.log(`Stream Offline, Trying to reconnect to ${user}`);
       checking = true;
       loadWithDelay();
+    }
   }
-}
 
   player.on('pause', function() {
     console.log(`Player Paused`);
     checking = true;
-});
+  });
 
   player.on('play', function() {
     console.log(`Player Playing`);
     checking = false;
-});
+  });
 
   setInterval(checkPlayerState, 5000);
+}
