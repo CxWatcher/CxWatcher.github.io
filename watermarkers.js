@@ -1,7 +1,7 @@
 const urlParams = new URLSearchParams(window.location.search);
 const user = urlParams.get('user');
 const video = document.getElementById('amazon-ivs-videojs');
-
+const player = videojs("amazon-ivs-videojs");
 
 if (!user) {
   document.body.innerHTML = '';
