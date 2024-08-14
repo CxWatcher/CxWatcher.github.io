@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   const iframeCount = 8;
-  const checkInterval = 120000;
+  const checkInterval = 120000; 
+  let streamersFetched = []; 
 
   async function fetchStreamers() {
     try {
@@ -23,46 +24,54 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  async function updateIframes(streamers) {
+  function updateIframes(streamers) {
     const iframes = document.querySelectorAll('iframe');
-    const targetIframes = Array.from(iframes).slice(0, iframeCount);
     const existingSlugs = new Set();
 
-    targetIframes.forEach(iframe => {
+    iframes.forEach(iframe => {
       const url = new URL(iframe.src);
       const params = new URLSearchParams(url.search);
-      if (params.has('user')) {
+      if (params.has('user') && params.get('user') !== 'blank') {
         existingSlugs.add(params.get('user'));
       }
     });
 
-    streamers.forEach((streamer, index) => {
-      if (index >= iframeCount) return;
-      const slug = streamer.channel.slug;
-      
-      if (!existingSlugs.has(slug)) {
-        if (index < targetIframes.length) {
-          console.log(`Setting iframe ${index} to ${slug}`);
-          targetIframes[index].src = `embed.html?user=${slug}`;
+    let streamerIndex = 0;
+    iframes.forEach((iframe) => {
+      const url = new URL(iframe.src);
+      const params = new URLSearchParams(url.search);
+
+      if (params.get('user') === 'blank' && streamerIndex < streamers.length) {
+        const slug = streamers[streamerIndex].channel.slug;
+
+        if (!existingSlugs.has(slug)) {
+          console.log(`Setting iframe to ${slug}`);
+          iframe.src = `embed.html?user=${slug}`;
           existingSlugs.add(slug);
+          streamerIndex++;
         }
       }
     });
+
+    if (streamerIndex < iframeCount) {
+      startPeriodicCheck();
+    }
+  }
+
+  async function startPeriodicCheck() {
+    const intervalId = setInterval(async () => {
+      const updatedStreamers = await fetchStreamers();
+      if (updatedStreamers.length >= iframeCount) {
+        clearInterval(intervalId); 
+      }
+      updateIframes(updatedStreamers);
+    }, checkInterval);
   }
 
   async function fillIframes() {
     const streamers = await fetchStreamers();
-    if (streamers.length < iframeCount) {
-      const intervalId = setInterval(async () => {
-        const updatedStreamers = await fetchStreamers();
-        if (updatedStreamers.length >= iframeCount) {
-          clearInterval(intervalId);
-        }
-        await updateIframes(updatedStreamers);
-      }, checkInterval);
-    } else {
-      await updateIframes(streamers);
-    }
+    streamersFetched = streamers; 
+    updateIframes(streamers);
   }
 
   fillIframes();
