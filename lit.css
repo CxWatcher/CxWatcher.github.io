@@ -435,31 +435,32 @@ body {
 }
 
 .video-js .vjs-volume-panel {
-    align-items: center!important
+    align-items: center !important;
+    overflow: visible !important; 
 }
+
 
 .vjs-volume-vertical {
-    left: -3.9em!important;
-    height: 7rem!important;
-    width: 1.75rem!important;
-    --tw-translate-x: .375rem !important;
-    --tw-translate-y: 0px !important;
-    transform: translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))!important;
-    border-radius: .125rem!important;
-    background-color: #191b1fb3!important
+    left: -3.9em !important; 
+    height: 7rem !important;
+    width: 1.75rem !important;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)) !important;
+    border-radius: .125rem !important;
+    background-color: #191b1fb3 !important;
 }
 
+
 .vjs-slider-vertical {
-    margin-top: .75rem!important;
-    margin-bottom: .75rem!important;
-    height: auto!important;
-    width: .5rem!important
+    margin-top: .75rem !important;
+    margin-bottom: .75rem !important;
+    height: auto !important;
+    width: .5rem !important;
+    overflow: visible !important; 
 }
 
 .vjs-volume-level {
-    width: .5rem!important;
-    --tw-bg-opacity: 1 !important;
-    background-color: rgb(83 252 24 / var(--tw-bg-opacity))!important
+    width: .5rem !important;
+    background-color: rgb(83, 252, 24) !important; 
 }
 
 .vjs-volume-level:before {
@@ -471,24 +472,19 @@ body {
 }
 
 .vjs-mouse-display .vjs-volume-tooltip {
-    --tw-translate-x: 1rem !important;
-    transform: translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))!important;
-    border-radius: .125rem!important;
-    background-color: #191b1fb3!important;
-    padding-left: .375rem!important;
-    padding-right: .375rem!important;
-    padding-bottom: 5px!important;
-    padding-top: .375rem!important;
-    vertical-align: middle!important;
-    font-size: .75rem!important;
-    line-height: 1rem!important;
-    font-weight: 500!important;
-    line-height: 1!important
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)) !important;
+    border-radius: .125rem !important;
+    background-color: #191b1fb3 !important;
+    padding: .375rem !important;
+    font-size: .75rem !important;
+    line-height: 1 !important;
+    font-weight: 500 !important;
+    white-space: nowrap !important; /* Ensure tooltip text is not cut off */
 }
 
 .vjs-volume-level .vjs-control-text {
     visibility: hidden;
-    display: none
+    display: none;
 }
 
 .vjs-control {
