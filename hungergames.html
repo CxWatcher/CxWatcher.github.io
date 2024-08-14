@@ -47,6 +47,18 @@
             padding: 0;
             display: block;
         }
+#watermark {
+  position: fixed;
+  bottom: 10px; /* Adjust as needed */
+  right: 10px; /* Adjust as needed */
+  z-index: 9999; /* Ensures it stays on top of other content */
+}
+
+#watermark img {
+  width: auto; /* Adjust the size as needed */
+  height: auto;
+}
+
     </style>
     <link rel="icon" href="favicon.ico">
 </head>
@@ -84,6 +96,12 @@
             <iframe src="customm.html" scrolling="no" frameborder="0"></iframe>
         </div>
     </div>
+<div id="watermark">
+  <a href="https://dsc.gg/kickclipper" target="_blank">
+    <img src="cliphere.png" alt="Watermark" />
+  </a>
+</div>
+
     <script type="text/javascript">
         var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
         var isMobile = screenWidth < 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
