@@ -1,4 +1,3 @@
-<script>
   document.addEventListener('DOMContentLoaded', async function() {
     async function fetchTopStreamers() {
       try {
@@ -39,4 +38,3 @@
     await fetchTopStreamers();
     console.log('Streamers update complete.');
   });
-</script>
