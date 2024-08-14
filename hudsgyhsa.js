@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
-  const iframeCount = 8;
+  const iframeCount = 8; 
   const checkInterval = 120000;
-  let existingSlugs = new Set();
+  const currentStreamers = new Set();
 
   async function fetchStreamers() {
     try {
@@ -28,41 +28,35 @@ document.addEventListener('DOMContentLoaded', function() {
     const iframes = document.querySelectorAll('iframe');
     let streamerIndex = 0;
 
-    iframes.forEach(iframe => {
-      const url = new URL(iframe.src);
-      const params = new URLSearchParams(url.search);
-      const userSlug = params.get('user');
-      if (userSlug && userSlug !== 'fetching') {
-        existingSlugs.add(userSlug);
-      }
-    });
-
     iframes.forEach((iframe) => {
-      const url = new URL(iframe.src);
-      const params = new URLSearchParams(url.search);
+      const src = iframe.src;
 
-      if (params.get('user') === 'fetching' && streamerIndex < streamers.length) {
+      if (src.includes('fetching.html') && streamerIndex < streamers.length) {
         const slug = streamers[streamerIndex].channel.slug;
 
-        if (!existingSlugs.has(slug)) {
-          console.log(`Setting iframe to ${slug}`);
+        if (!currentStreamers.has(slug)) {
+          console.log(`Updating iframe ${src} to ${slug}`);
           iframe.src = `embed.html?user=${slug}`;
-          existingSlugs.add(slug);
+          currentStreamers.add(slug);
           streamerIndex++;
         }
       }
     });
 
     if (streamerIndex < iframeCount) {
+      console.log('Not all iframes are filled. Starting periodic check.');
       startPeriodicCheck();
     }
   }
 
   async function startPeriodicCheck() {
     const intervalId = setInterval(async () => {
+      console.log('Checking for new streamers...');
       const updatedStreamers = await fetchStreamers();
+      
       if (updatedStreamers.length >= iframeCount) {
         clearInterval(intervalId);
+        console.log('Enough streamers found. Stopping periodic check.');
       }
       updateIframes(updatedStreamers);
     }, checkInterval);
