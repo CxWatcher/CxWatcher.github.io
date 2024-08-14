@@ -3,7 +3,7 @@
       try {
         console.log('Fetching data from API...');
         
-        const response = await fetch('https://kick.com/stream/livestreams/en?page=1&limit=8&subcategory=irl&sort=desc');
+        const response = await fetch('https://kick.com/stream/livestreams/en?page=1&limit=8&subcategory=ices-survival-games&sort=desc');
         
         if (!response.ok) {
           console.error('Failed to fetch data. Status:', response.status);
@@ -23,7 +23,7 @@
         data.data.forEach((streamer, index) => {
           if (index < iframes.length) {
             const slug = streamer.channel.slug;
-            console.log(`Setting iframe ${index} src to: embed.html?user=${slug}`);
+            console.log(`Setting stream 1 ${index} to ${slug}`);
             iframes[index].src = `embed.html?user=${slug}`;
           } else {
             console.warn(`No iframe available for streamer ${index}`);
