@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   const iframeCount = 8;
-  const checkInterval = 120000; 
-  let streamersFetched = []; 
+  const checkInterval = 120000;
+  let existingSlugs = new Set();
 
   async function fetchStreamers() {
     try {
@@ -26,22 +26,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function updateIframes(streamers) {
     const iframes = document.querySelectorAll('iframe');
-    const existingSlugs = new Set();
+    let streamerIndex = 0;
 
     iframes.forEach(iframe => {
       const url = new URL(iframe.src);
       const params = new URLSearchParams(url.search);
-      if (params.has('user') && params.get('user') !== 'blank') {
-        existingSlugs.add(params.get('user'));
+      const userSlug = params.get('user');
+      if (userSlug && userSlug !== 'fetching') {
+        existingSlugs.add(userSlug);
       }
     });
 
-    let streamerIndex = 0;
     iframes.forEach((iframe) => {
       const url = new URL(iframe.src);
       const params = new URLSearchParams(url.search);
 
-      if (params.get('user') === 'blank' && streamerIndex < streamers.length) {
+      if (params.get('user') === 'fetching' && streamerIndex < streamers.length) {
         const slug = streamers[streamerIndex].channel.slug;
 
         if (!existingSlugs.has(slug)) {
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const intervalId = setInterval(async () => {
       const updatedStreamers = await fetchStreamers();
       if (updatedStreamers.length >= iframeCount) {
-        clearInterval(intervalId); 
+        clearInterval(intervalId);
       }
       updateIframes(updatedStreamers);
     }, checkInterval);
@@ -70,7 +70,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   async function fillIframes() {
     const streamers = await fetchStreamers();
-    streamersFetched = streamers; 
     updateIframes(streamers);
   }
 
