@@ -617,11 +617,6 @@ body {
     position: static!important
 }
 
-@media (max-width: 768px) {
-    .vjs-control.vjs-button:has(.kick-icon-theater),.vjs-volume-vertical {
-        display:none!important
-    }
-}
 
 .vjs-icon-placeholder:not(.vjs-big-play-button > .vjs-icon-placeholder) {
     font-family: kickplayericons!important;
