@@ -3,8 +3,7 @@
   <head>
 <meta property="og:title" content="Cx Watcher">
 <meta property="og:description" content="Multistream Viewer for Cx Kick Streamers
-										 Click the Cx Logo To Change Streamers
-										 Ice, Sam, Sus, Moises, Gary, Homeless, Joel, XenonPlanet & DeePak">
+										 Click the Cx Logo To Change Streamers">
 <meta property="og:image" content="https://i.imgur.com/DpIbA7m.png">
 <meta property="og:url" content="https://CxWatcher.github.io/">
     <title>Cx Watcher</title>
@@ -38,7 +37,17 @@ html, body {
   margin: 0;
   padding: 0;
 }
+#watermark {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 9999;
+}
 
+#watermark img {
+  width: 100px;
+  height: auto; 
+}
 <link rel="icon" href="favicon.ico">
     </style>
   </head>
@@ -59,5 +68,10 @@ html, body {
       <iframe src="customm.html" scrolling="no" frameborder="0" autoplay></iframe>
     </div>
   </div>
+<div id="watermark">
+  <a href="https://dsc.gg/kickclipper" target="_blank">
+    <img src="clipit.png" alt="Watermark" />
+  </a>
+</div>
 </body>
 </html>
