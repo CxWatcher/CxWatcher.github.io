@@ -1,12 +1,13 @@
 document.addEventListener('DOMContentLoaded', async function() {
   const iframeCount = 8; 
   const currentStreamers = new Set();
+  const eliminated = new Set(['Cobbruvs', 'crazytawn']); // Add eliminated streamers here
 
   async function fetchStreamers() {
     try {
       console.log('Fetching data from API...');
       
-      const response = await fetch('https://kick.com/stream/livestreams/en?page=1&limit=8&subcategory=hunger-games&sort=desc');
+      const response = await fetch('https://kick.com/stream/livestreams/en?page=1&limit=30&subcategory=hunger-games&sort=desc');
       
       if (!response.ok) {
         console.error('Failed to fetch data. Status:', response.status);
@@ -30,14 +31,22 @@ document.addEventListener('DOMContentLoaded', async function() {
     iframes.forEach((iframe) => {
       const src = iframe.src;
 
-      if (src.includes('fetching.html') && streamerIndex < streamers.length) {
-        const slug = streamers[streamerIndex].channel.slug;
-
-        if (!currentStreamers.has(slug)) {
-          console.log(`Updating iframe ${src} to ${slug}`);
-          iframe.src = `embed.html?user=${slug}`;
-          currentStreamers.add(slug);
+      if (src.includes('fetching.html')) {
+        // Find the next streamer not in the eliminated list
+        while (streamerIndex < streamers.length && eliminated.has(streamers[streamerIndex].channel.slug)) {
+          console.log(`Skipping eliminated streamer: ${streamers[streamerIndex].channel.slug}`);
           streamerIndex++;
+        }
+
+        if (streamerIndex < streamers.length) {
+          const slug = streamers[streamerIndex].channel.slug;
+
+          if (!currentStreamers.has(slug)) {
+            console.log(`Updating iframe ${src} to ${slug}`);
+            iframe.src = `embed.html?user=${slug}`;
+            currentStreamers.add(slug);
+            streamerIndex++;
+          }
         }
       }
     });
