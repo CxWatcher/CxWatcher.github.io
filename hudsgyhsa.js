@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', async function() {
   const iframeCount = 8; 
   const currentStreamers = new Set();
-  const eliminated = new Set(['slykane', '22chainz', 'nedx', 'moises', 'moistcarrots', 'kick_clipz', 'bakedalaska', 'harmoneyes', 'rico-gotti', 'mrfunkefresh', 'bakedalaska', 's0fakinghigh', 'vaultkeeper']);
+  const eliminated = new Set(['slykane', '22chainz', 'nedx', 'moises', 'moistcarrots', 'kick_clipz', 'bakedalaska', 'harmoneyes', 'rico-gotti', 'mrfunkefresh', 'bakedalaska', 's0fakinghigh', 'vaultkeeper', 'turbski1']);
 
   async function fetchStreamers() {
     try {
