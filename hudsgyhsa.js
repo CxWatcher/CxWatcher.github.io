@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', async function() {
   const iframeCount = 8; 
   const currentStreamers = new Set();
-  const eliminated = new Set(['test2', 'test1']);
+  const eliminated = new Set(['slykane', '22chainz', 'nedx']);
 
   async function fetchStreamers() {
     try {
