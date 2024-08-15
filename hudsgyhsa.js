@@ -32,7 +32,6 @@ document.addEventListener('DOMContentLoaded', async function() {
       const src = iframe.src;
 
       if (src.includes('fetching.html')) {
-        // Find the next streamer not in the eliminated list
         while (streamerIndex < streamers.length && eliminated.has(streamers[streamerIndex].channel.slug)) {
           console.log(`Skipping eliminated streamer: ${streamers[streamerIndex].channel.slug}`);
           streamerIndex++;
