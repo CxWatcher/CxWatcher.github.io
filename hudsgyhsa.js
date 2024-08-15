@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     try {
       console.log('Fetching data from API...');
       
-      const response = await fetch('https://kick.com/stream/livestreams/en?page=1&limit=30&subcategory=hunger-games&sort=desc');
+      const response = await fetch('https://kick.com/stream/livestreams/en?page=1&limit=50&subcategory=hunger-games&sort=desc');
       
       if (!response.ok) {
         console.error('Failed to fetch data. Status:', response.status);
