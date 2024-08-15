@@ -1,6 +1,5 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
   const iframeCount = 8; 
-  const checkInterval = 120000;
   const currentStreamers = new Set();
 
   async function fetchStreamers() {
@@ -44,22 +43,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     if (streamerIndex < iframeCount) {
-      console.log('Not all iframes are filled. Starting periodic check.');
-      startPeriodicCheck();
+      console.log('Not all iframes are filled. Fewer streamers than expected.');
     }
-  }
-
-  async function startPeriodicCheck() {
-    const intervalId = setInterval(async () => {
-      console.log('Checking for new streamers...');
-      const updatedStreamers = await fetchStreamers();
-      
-      if (updatedStreamers.length >= iframeCount) {
-        clearInterval(intervalId);
-        console.log('Enough streamers found. Stopping periodic check.');
-      }
-      updateIframes(updatedStreamers);
-    }, checkInterval);
   }
 
   async function fillIframes() {
@@ -67,6 +52,6 @@ document.addEventListener('DOMContentLoaded', function() {
     updateIframes(streamers);
   }
 
-  fillIframes();
+  await fillIframes();
   console.log('Initial streamers update complete.');
 });
