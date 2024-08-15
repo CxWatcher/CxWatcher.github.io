@@ -31,7 +31,17 @@ html, body {
   margin: 0;
   padding: 0;
 }
+#watermark {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 9999;
+}
 
+#watermark img {
+  width: 100px;
+  height: auto; 
+}
 <link rel="icon" href="favicon.ico">
 	  
     </style>
@@ -45,6 +55,10 @@ html, body {
       <iframe src="customm.html" scrolling="no" frameborder="0" autoplay></iframe>
     </div>
   </div>
+<div id="watermark">
+  <a href="https://dsc.gg/kickclipper" target="_blank">
+    <img src="clipit.png" alt="Watermark" />
+  </a>
   <script type="text/javascript">
     var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
     var isMobile = screenWidth < 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
