@@ -69,7 +69,6 @@
                 gulagDiv.insertAdjacentElement('afterend', buttonContainer);
             }
 
-            // Search bar styled to match the health list
             const searchBarContainer = document.createElement('div');
             searchBarContainer.style.position = 'fixed';
             searchBarContainer.style.top = '10px';
@@ -234,6 +233,7 @@
             document.body.appendChild(dataListContainer);
 
             const toggledUsers = {};
+
             function updateList() {
                 fetch('https://appapi.iceposeidon.com/public')
                     .then(response => response.json())
@@ -261,7 +261,7 @@
                                         const name = username.textContent.trim().toLowerCase();
                                         if (name === nameLower) {
                                             username.closest('.user-marker-inner').style.display = 'block';
-                                        } else {
+                                        } else if (!toggledUsers[nameLower]) {
                                             username.closest('.user-marker-inner').style.display = 'none';
                                         }
                                     });
@@ -272,7 +272,11 @@
                                 if (!searchBar.value) {
                                     const usernames = document.querySelectorAll('.username');
                                     usernames.forEach(function (username) {
-                                        username.closest('.user-marker-inner').style.display = 'block';
+                                        if (toggledUsers[username.textContent.trim().toLowerCase()]) {
+                                            username.closest('.user-marker-inner').style.display = 'block';
+                                        } else {
+                                            username.closest('.user-marker-inner').style.display = 'block';
+                                        }
                                     });
                                 }
                             });
@@ -300,13 +304,6 @@
                                     listItem.style.backgroundColor = 'green';
                                     toggledUsers[nameLower] = true;
                                 }
-
-                                usernames.forEach(function (username) {
-                                    const name = username.textContent.trim().toLowerCase();
-                                    if (toggledUsers[name]) {
-                                        username.closest('.user-marker-inner').style.display = 'block';
-                                    }
-                                });
                             });
 
                             if (toggledUsers[nameLower]) {
