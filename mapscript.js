@@ -180,16 +180,19 @@
                 usernames.forEach(username => {
                     if (username.textContent.trim() === name) {
                         username.closest('.user-marker-inner').style.display = 'block';
-                        highlightPlayer(username.closest('.user-marker-inner'));
+                        highlightPlayer(username.closest('.user-marker-inner'), usernames);
                     } else {
                         username.closest('.user-marker-inner').style.display = 'none';
                     }
                 });
             }
 
+
             function highlightPlayer(playerElement, usernames) {
                 const playerColor = playerElement.style.backgroundColor;
                 const map = document.querySelector('#map');
+            
+                // Center and zoom the map on the player element
                 map.scrollTo(playerElement.offsetLeft - 200, playerElement.offsetTop - 200);
             
                 playerElement.style.border = `3px solid ${playerColor}`;
@@ -206,17 +209,20 @@
                 document.head.appendChild(styleSheet);
             
                 // Ensure that usernames is available in this scope
-                const teamButtons = document.querySelectorAll('button');
-                teamButtons.forEach(button => {
-                    button.addEventListener('click', () => {
-                        map.style.transform = 'scale(1)';
-                        playerElement.style.border = 'none';
-                        playerElement.style.animation = 'none';
-                        usernames.forEach(username => username.closest('.user-marker-inner').style.display = 'block');
+                if (usernames) {
+                    const teamButtons = document.querySelectorAll('button');
+                    teamButtons.forEach(button => {
+                        button.addEventListener('click', () => {
+                            map.style.transform = 'scale(1)';
+                            playerElement.style.border = 'none';
+                            playerElement.style.animation = 'none';
+                            usernames.forEach(username => username.closest('.user-marker-inner').style.display = 'block');
+                        });
                     });
-                });
+                } else {
+                    console.error('Usernames is undefined');
+                }
             }
-
 
 
             function resetView() {
