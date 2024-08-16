@@ -15,7 +15,7 @@
 
             function changeUserBoxColor() {
                 const usernames = document.querySelectorAll('.username');
-                usernames.forEach(function(username) {
+                usernames.forEach(username => {
                     const name = username.textContent.trim();
                     if (teamColors[name]) {
                         username.closest('.user-marker-inner').style.backgroundColor = teamColors[name];
@@ -49,7 +49,7 @@
                     teamButton.addEventListener('click', () => {
                         const usernames = document.querySelectorAll('.username');
                         if (!buttonState[color]) {
-                            usernames.forEach(function(username) {
+                            usernames.forEach(username => {
                                 const name = username.textContent.trim();
                                 if (teamColors[name] === color) {
                                     username.closest('.user-marker-inner').style.display = 'block';
@@ -59,7 +59,7 @@
                             });
                             buttonState[color] = true;
                         } else {
-                            usernames.forEach(function(username) {
+                            usernames.forEach(username => {
                                 username.closest('.user-marker-inner').style.display = 'block';
                             });
                             buttonState[color] = false;
@@ -290,7 +290,6 @@
 
                             listItem.addEventListener('click', () => {
                                 const usernames = document.querySelectorAll('.username');
-
                                 if (toggledUsers[nameLower]) {
                                     usernames.forEach(function (username) {
                                         if (username.textContent.trim().toLowerCase() === nameLower) {
@@ -307,16 +306,15 @@
                                             username.closest('.user-marker-inner').style.display = 'none';
                                         }
                                     });
-
                                     listItem.style.backgroundColor = 'green';
                                     toggledUsers[nameLower] = true;
                                 }
 
                                 // Update visibility based on toggled users
-                                const usernames = document.querySelectorAll('.username');
+                                const updatedUsernames = document.querySelectorAll('.username');
                                 if (Object.keys(toggledUsers).length === 0) {
                                     // If no players are toggled, show all players
-                                    usernames.forEach(username => {
+                                    updatedUsernames.forEach(username => {
                                         username.closest('.user-marker-inner').style.display = 'block';
                                     });
                                 }
