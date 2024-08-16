@@ -239,7 +239,7 @@
             let isListHovered = false;
 
             function updateList() {
-                fetch('https://api.iceposeidon.com/public')
+                fetch('https://appapi.iceposeidon.com/public')
                     .then(response => response.json())
                     .then(data => {
                         const sortedData = data.sort((a, b) => a.lives_remaining - b.lives_remaining);
