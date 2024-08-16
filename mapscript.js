@@ -47,7 +47,7 @@
                     buttonState[color] = false;
 
                     teamButton.addEventListener('click', () => {
-                        const usernames = document.querySelectorAll('.username'); // Define usernames here
+                        const usernames = document.querySelectorAll('.username');
                         if (!buttonState[color]) {
                             usernames.forEach(function(username) {
                                 const name = username.textContent.trim();
@@ -105,7 +105,7 @@
             clearButton.style.color = 'white';
             clearButton.style.fontSize = '18px';
             clearButton.style.cursor = 'pointer';
-            clearButton.style.display = 'none'; // Start with the clear button hidden
+            clearButton.style.display = 'none';
 
             const searchResults = document.createElement('div');
             searchResults.style.backgroundColor = 'black';
@@ -123,17 +123,14 @@
                 const inputValue = searchBar.value.toLowerCase().trim();
                 const usernames = Array.from(document.querySelectorAll('.username')).map(username => username.textContent.trim());
 
-                // Show or hide the clear button based on whether there's text
                 clearButton.style.display = inputValue ? 'block' : 'none';
 
-                // Reset display when any part of the search input is deleted
                 if (inputValue.length < searchBar.lastValue?.length) {
                     resetView();
                 }
 
                 searchBar.lastValue = inputValue;
 
-                // Predictive text filtering
                 if (inputValue) {
                     const matchingUsernames = usernames.filter(name => name.toLowerCase().startsWith(inputValue));
                     searchResults.innerHTML = '';
@@ -161,7 +158,6 @@
                 }
             });
 
-            // Clear button functionality
             clearButton.addEventListener('click', () => {
                 searchBar.value = '';
                 clearButton.style.display = 'none';
@@ -174,7 +170,6 @@
             searchBarContainer.appendChild(searchResults);
             document.body.appendChild(searchBarContainer);
 
-            // Function to locate and highlight a player
             function locatePlayer(name) {
                 const usernames = document.querySelectorAll('.username');
                 usernames.forEach(username => {
@@ -187,14 +182,12 @@
                 });
             }
 
-
             function highlightPlayer(playerElement, usernames) {
                 const playerColor = playerElement.style.backgroundColor;
                 const map = document.querySelector('#map');
-            
-                // Center and zoom the map on the player element
+
                 map.scrollTo(playerElement.offsetLeft - 200, playerElement.offsetTop - 200);
-            
+
                 playerElement.style.border = `3px solid ${playerColor}`;
                 playerElement.style.animation = 'strobe 1s infinite';
                 const styleSheet = document.createElement('style');
@@ -207,23 +200,17 @@
                     }
                 `;
                 document.head.appendChild(styleSheet);
-            
-                // Ensure that usernames is available in this scope
-                if (usernames) {
-                    const teamButtons = document.querySelectorAll('button');
-                    teamButtons.forEach(button => {
-                        button.addEventListener('click', () => {
-                            map.style.transform = 'scale(1)';
-                            playerElement.style.border = 'none';
-                            playerElement.style.animation = 'none';
-                            usernames.forEach(username => username.closest('.user-marker-inner').style.display = 'block');
-                        });
-                    });
-                } else {
-                    console.error('Usernames is undefined');
-                }
-            }
 
+                const teamButtons = document.querySelectorAll('button');
+                teamButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        map.style.transform = 'scale(1)';
+                        playerElement.style.border = 'none';
+                        playerElement.style.animation = 'none';
+                        usernames.forEach(username => username.closest('.user-marker-inner').style.display = 'block');
+                    });
+                });
+            }
 
             function resetView() {
                 const map = document.querySelector('#map');
@@ -234,6 +221,7 @@
                     player.style.animation = 'none';
                 });
             }
+
             const dataListContainer = document.createElement('div');
             dataListContainer.style.position = 'fixed';
             dataListContainer.style.bottom = '10px';
@@ -297,6 +285,7 @@
                                     });
                                 }
                             });
+
                             listItem.addEventListener('click', () => {
                                 const usernames = document.querySelectorAll('.username');
 
