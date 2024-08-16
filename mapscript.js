@@ -118,11 +118,14 @@
             searchResults.style.display = 'none';
             searchResults.style.fontFamily = 'Arial, sans-serif';
 
+            let isSearchActive = false;
+
             searchBar.addEventListener('input', () => {
                 const inputValue = searchBar.value.toLowerCase().trim();
                 const usernames = Array.from(document.querySelectorAll('.username')).map(username => username.textContent.trim());
 
                 clearButton.style.display = inputValue ? 'block' : 'none';
+                isSearchActive = Boolean(inputValue);
 
                 if (inputValue.length < searchBar.lastValue?.length) {
                     resetView();
@@ -233,6 +236,7 @@
             document.body.appendChild(dataListContainer);
 
             const toggledUsers = {};
+            let isListHovered = false;
 
             function updateList() {
                 fetch('https://appapi.iceposeidon.com/public')
@@ -255,7 +259,8 @@
                             const nameLower = entry.name.toLowerCase();
 
                             listItem.addEventListener('mouseover', () => {
-                                if (!searchBar.value) {
+                                if (!isSearchActive) {
+                                    isListHovered = true;
                                     const usernames = document.querySelectorAll('.username');
                                     usernames.forEach(function (username) {
                                         const name = username.textContent.trim().toLowerCase();
@@ -269,7 +274,8 @@
                             });
 
                             listItem.addEventListener('mouseout', () => {
-                                if (!searchBar.value) {
+                                if (!isSearchActive) {
+                                    isListHovered = false;
                                     const usernames = document.querySelectorAll('.username');
                                     usernames.forEach(function (username) {
                                         if (toggledUsers[username.textContent.trim().toLowerCase()]) {
