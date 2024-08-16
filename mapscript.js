@@ -281,8 +281,8 @@
                                         const name = username.textContent.trim().toLowerCase();
                                         if (toggledUsers[name]) {
                                             username.closest('.user-marker-inner').style.display = 'block';
-                                        } else {
-                                            username.closest('.user-marker-inner').style.display = 'block';
+                                        } else if (!isListHovered) {
+                                            username.closest('.user-marker-inner').style.display = 'none';
                                         }
                                     });
                                 }
@@ -311,6 +311,15 @@
                                     listItem.style.backgroundColor = 'green';
                                     toggledUsers[nameLower] = true;
                                 }
+
+                                // Update visibility based on toggled users
+                                const usernames = document.querySelectorAll('.username');
+                                if (Object.keys(toggledUsers).length === 0) {
+                                    // If no players are toggled, show all players
+                                    usernames.forEach(username => {
+                                        username.closest('.user-marker-inner').style.display = 'block';
+                                    });
+                                }
                             });
 
                             if (toggledUsers[nameLower]) {
@@ -327,7 +336,7 @@
                         });
 
                         if (Object.keys(toggledUsers).length === 0) {
-                            // If no players are toggled, show all
+                            // If no players are toggled, show all players
                             usernames.forEach(username => {
                                 username.closest('.user-marker-inner').style.display = 'block';
                             });
