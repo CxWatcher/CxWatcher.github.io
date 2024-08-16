@@ -69,6 +69,173 @@
                 gulagDiv.insertAdjacentElement('afterend', buttonContainer);
             }
 
+            // Search bar styled to match the health list
+            const searchBarContainer = document.createElement('div');
+            searchBarContainer.style.position = 'fixed';
+            searchBarContainer.style.top = '10px';
+            searchBarContainer.style.left = '50%';
+            searchBarContainer.style.transform = 'translateX(-50%)';
+            searchBarContainer.style.padding = '10px';
+            searchBarContainer.style.borderRadius = '8px';
+            searchBarContainer.style.width = '300px';
+            searchBarContainer.style.zIndex = '1001';
+            searchBarContainer.style.fontFamily = 'Arial, sans-serif';
+
+            const searchBar = document.createElement('input');
+            searchBar.type = 'text';
+            searchBar.placeholder = 'Search player...';
+            searchBar.style.width = '90%';
+            searchBar.style.padding = '10px';
+            searchBar.style.borderRadius = '8px';
+            searchBar.style.border = 'none';
+            searchBar.style.backgroundColor = 'black';
+            searchBar.style.color = 'green';
+            searchBar.style.fontFamily = 'Arial, sans-serif';
+            searchBar.style.fontSize = '16px';
+            searchBar.style.outline = 'none';
+
+            const clearButton = document.createElement('button');
+            clearButton.textContent = '✕';
+            clearButton.style.position = 'absolute';
+            clearButton.style.right = '20px';
+            clearButton.style.top = '50%';
+            clearButton.style.transform = 'translateY(-50%)';
+            clearButton.style.backgroundColor = 'transparent';
+            clearButton.style.border = 'none';
+            clearButton.style.color = 'white';
+            clearButton.style.fontSize = '18px';
+            clearButton.style.cursor = 'pointer';
+            clearButton.style.display = 'none'; // Start with the clear button hidden
+
+            const searchResults = document.createElement('div');
+            searchResults.style.backgroundColor = 'black';
+            searchResults.style.color = 'green';
+            searchResults.style.position = 'absolute';
+            searchResults.style.zIndex = '1001';
+            searchResults.style.borderRadius = '5px';
+            searchResults.style.marginTop = '5px';
+            searchResults.style.padding = '5px';
+            searchResults.style.width = '100%';
+            searchResults.style.display = 'none';
+            searchResults.style.fontFamily = 'Arial, sans-serif';
+
+            searchBar.addEventListener('input', () => {
+                const inputValue = searchBar.value.toLowerCase().trim();
+                const usernames = Array.from(document.querySelectorAll('.username')).map(username => username.textContent.trim());
+
+                // Show or hide the clear button based on whether there's text
+                clearButton.style.display = inputValue ? 'block' : 'none';
+
+                // Reset display when any part of the search input is deleted
+                if (inputValue.length < searchBar.lastValue?.length) {
+                    resetView();
+                }
+
+                searchBar.lastValue = inputValue;
+
+                // Predictive text filtering
+                if (inputValue) {
+                    const matchingUsernames = usernames.filter(name => name.toLowerCase().startsWith(inputValue));
+                    searchResults.innerHTML = '';
+                    searchResults.style.display = matchingUsernames.length ? 'block' : 'none';
+
+                    matchingUsernames.forEach(name => {
+                        const suggestion = document.createElement('div');
+                        suggestion.textContent = name;
+                        suggestion.style.cursor = 'pointer';
+                        suggestion.style.padding = '5px';
+                        suggestion.style.borderRadius = '5px';
+                        suggestion.style.backgroundColor = 'black';
+                        suggestion.style.color = 'green';
+                        suggestion.onmouseover = () => suggestion.style.backgroundColor = 'rgba(0, 255, 0, 0.2)';
+                        suggestion.onmouseout = () => suggestion.style.backgroundColor = 'black';
+                        suggestion.onclick = () => {
+                            searchBar.value = name;
+                            searchResults.style.display = 'none';
+                            locatePlayer(name);
+                        };
+                        searchResults.appendChild(suggestion);
+                    });
+                } else {
+                    searchResults.style.display = 'none';
+                }
+            });
+
+            // Clear button functionality
+            clearButton.addEventListener('click', () => {
+                searchBar.value = '';
+                clearButton.style.display = 'none';
+                searchResults.style.display = 'none';
+                resetView();
+            });
+
+            searchBarContainer.appendChild(searchBar);
+            searchBarContainer.appendChild(clearButton);
+            searchBarContainer.appendChild(searchResults);
+            document.body.appendChild(searchBarContainer);
+
+            // Function to locate and highlight a player
+            function locatePlayer(name) {
+                const usernames = document.querySelectorAll('.username');
+                usernames.forEach(username => {
+                    if (username.textContent.trim() === name) {
+                        username.closest('.user-marker-inner').style.display = 'block';
+                        highlightPlayer(username.closest('.user-marker-inner'));
+                    } else {
+                        username.closest('.user-marker-inner').style.display = 'none';
+                    }
+                });
+            }
+
+            function highlightPlayer(playerElement) {
+                const playerColor = playerElement.style.backgroundColor;
+                const map = document.querySelector('#map');
+
+                // Zoom in and solo out the player's marker
+                map.style.transform = 'scale(2)';
+                map.scrollTo(playerElement.offsetLeft - 200, playerElement.offsetTop - 200);
+
+                // Add strobing border
+                playerElement.style.border = `3px solid ${playerColor}`;
+                playerElement.style.animation = 'strobe 1s infinite';
+
+                // Strobe keyframes
+                const styleSheet = document.createElement('style');
+                styleSheet.type = 'text/css';
+                styleSheet.innerHTML = `
+                    @keyframes strobe {
+                        0% { box-shadow: 0 0 5px ${playerColor}; }
+                        50% { box-shadow: 0 0 20px ${playerColor}; }
+                        100% { box-shadow: 0 0 5px ${playerColor}; }
+                    }
+                `;
+                document.head.appendChild(styleSheet);
+
+                // Reset when other buttons are clicked
+                const teamButtons = document.querySelectorAll('button');
+                teamButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        map.style.transform = 'scale(1)';
+                        playerElement.style.border = 'none';
+                        playerElement.style.animation = 'none';
+                        usernames.forEach(username => username.closest('.user-marker-inner').style.display = 'block');
+                    });
+                });
+            }
+
+            function resetView() {
+                const map = document.querySelector('#map');
+                const playerElements = document.querySelectorAll('.user-marker-inner');
+
+                // Reset zoom and visibility
+                map.style.transform = 'scale(1)';
+                playerElements.forEach(player => {
+                    player.style.display = 'block';
+                    player.style.border = 'none';
+                    player.style.animation = 'none';
+                });
+            }
+
             // Insert data list to the bottom left
             const dataListContainer = document.createElement('div');
             dataListContainer.style.position = 'fixed';
