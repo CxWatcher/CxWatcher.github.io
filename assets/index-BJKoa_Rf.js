@@ -4398,7 +4398,7 @@ var Ii = {
         var jt = ue.extend({
             options: {
                 minZoom: 0,
-                maxZoom: 18,
+                maxZoom: 19,
                 subdomains: "abc",
                 errorTileUrl: "",
                 zoomOffset: 0,
