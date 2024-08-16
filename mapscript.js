@@ -69,6 +69,7 @@
                 gulagDiv.insertAdjacentElement('afterend', buttonContainer);
             }
 
+            // Search bar styled to match the health list
             const searchBarContainer = document.createElement('div');
             searchBarContainer.style.position = 'fixed';
             searchBarContainer.style.top = '10px';
@@ -104,7 +105,7 @@
             clearButton.style.color = 'white';
             clearButton.style.fontSize = '18px';
             clearButton.style.cursor = 'pointer';
-            clearButton.style.display = 'none';
+            clearButton.style.display = 'none'; // Start with the clear button hidden
 
             const searchResults = document.createElement('div');
             searchResults.style.backgroundColor = 'black';
@@ -121,13 +122,18 @@
             searchBar.addEventListener('input', () => {
                 const inputValue = searchBar.value.toLowerCase().trim();
                 const usernames = Array.from(document.querySelectorAll('.username')).map(username => username.textContent.trim());
+
+                // Show or hide the clear button based on whether there's text
                 clearButton.style.display = inputValue ? 'block' : 'none';
+
+                // Reset display when any part of the search input is deleted
                 if (inputValue.length < searchBar.lastValue?.length) {
                     resetView();
                 }
 
                 searchBar.lastValue = inputValue;
 
+                // Predictive text filtering
                 if (inputValue) {
                     const matchingUsernames = usernames.filter(name => name.toLowerCase().startsWith(inputValue));
                     searchResults.innerHTML = '';
@@ -154,6 +160,8 @@
                     searchResults.style.display = 'none';
                 }
             });
+
+            // Clear button functionality
             clearButton.addEventListener('click', () => {
                 searchBar.value = '';
                 clearButton.style.display = 'none';
@@ -166,6 +174,7 @@
             searchBarContainer.appendChild(searchResults);
             document.body.appendChild(searchBarContainer);
 
+            // Function to locate and highlight a player
             function locatePlayer(name) {
                 const usernames = document.querySelectorAll('.username');
                 usernames.forEach(username => {
@@ -179,55 +188,41 @@
             }
 
             function highlightPlayer(playerElement) {
-                const playerLatLng = playerElement._latlng; // Assuming playerElement has a _latlng property with Leaflet LatLng object
-            
-                if (playerLatLng) {
-                    // Zoom to the player's marker
-                    map.setView(playerLatLng, 10); // Adjust zoom level as needed
-            
-                    // Add strobing border
-                    playerElement.style.border = `3px solid ${playerElement.style.backgroundColor}`;
-                    playerElement.style.animation = 'strobe 1s infinite';
-            
-                    // Strobe keyframes
-                    const styleSheet = document.createElement('style');
-                    styleSheet.type = 'text/css';
-                    styleSheet.innerHTML = `
-                        @keyframes strobe {
-                            0% { box-shadow: 0 0 5px ${playerElement.style.backgroundColor}; }
-                            50% { box-shadow: 0 0 20px ${playerElement.style.backgroundColor}; }
-                            100% { box-shadow: 0 0 5px ${playerElement.style.backgroundColor}; }
-                        }
-                    `;
-                    document.head.appendChild(styleSheet);
-            
-                    // Reset when other buttons are clicked
-                    const teamButtons = document.querySelectorAll('button');
-                    teamButtons.forEach(button => {
-                        button.addEventListener('click', () => {
-                            map.setView(map.getCenter(), 1); // Reset zoom level as needed
-                            playerElement.style.border = 'none';
-                            playerElement.style.animation = 'none';
-                            usernames.forEach(username => username.closest('.user-marker-inner').style.display = 'block');
-                        });
+                const playerColor = playerElement.style.backgroundColor;
+                const map = document.querySelector('#map');
+                map.scrollTo(playerElement.offsetLeft - 200, playerElement.offsetTop - 200);
+                playerElement.style.border = `3px solid ${playerColor}`;
+                playerElement.style.animation = 'strobe 1s infinite';
+                const styleSheet = document.createElement('style');
+                styleSheet.type = 'text/css';
+                styleSheet.innerHTML = `
+                    @keyframes strobe {
+                        0% { box-shadow: 0 0 5px ${playerColor}; }
+                        50% { box-shadow: 0 0 20px ${playerColor}; }
+                        100% { box-shadow: 0 0 5px ${playerColor}; }
+                    }
+                `;
+                document.head.appendChild(styleSheet);
+                const teamButtons = document.querySelectorAll('button');
+                teamButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        map.style.transform = 'scale(1)';
+                        playerElement.style.border = 'none';
+                        playerElement.style.animation = 'none';
+                        usernames.forEach(username => username.closest('.user-marker-inner').style.display = 'block');
                     });
-                }
+                });
             }
 
             function resetView() {
                 const map = document.querySelector('#map');
                 const playerElements = document.querySelectorAll('.user-marker-inner');
-
-                // Reset zoom and visibility
-                map.style.transform = 'scale(1)';
                 playerElements.forEach(player => {
                     player.style.display = 'block';
                     player.style.border = 'none';
                     player.style.animation = 'none';
                 });
             }
-
-            // Insert data list to the bottom left
             const dataListContainer = document.createElement('div');
             dataListContainer.style.position = 'fixed';
             dataListContainer.style.bottom = '10px';
