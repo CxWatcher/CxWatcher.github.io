@@ -7204,7 +7204,7 @@ function Rs({
                     html: '<a target="_blank" style="text-decoration:none;" href="https://kick.com/' + b + `">
 					<div class="user-marker-inner ` + T.join(" ") + `">
 						<div style="display:flex;align-content:center;">
-							<img class="avatar-image" style="margin-right:5px;border-radius:5px;" src="` + (et != null && et.startsWith("/") ? et : "/" + b + ".webp") + `" height="16px" width="16px" />
+							<img class="avatar-image" style="margin-right:5px;border-radius:5px;" src="https://map.iceposeidon.com` + (et != null && et.startsWith("/") ? et : "/" + b + ".webp") + `" height="16px" width="16px" />
 							<div class="username">` + U + `</div>
 						</div>
 					</div>
