@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', async function() {
   const iframeCount = 8; 
   const currentStreamers = new Set();
-  const eliminated = new Set(['slykane', '22chainz', 'nedx', 'moises', 'moistcarrots', 'kick_clipz', 'bakedalaska', 'harmoneyes', 'rico-gotti', 'mrfunkefresh', 'bakedalaska', 's0fakinghigh', 'vaultkeeper', 'turbski1', 'dabdaddy420', 'bugsbunnywunnyy', 'tommytentoes', 'itsagee', 'weaselxo', 'imsamuel', 'cellfmade', 'pablovintura', 'double-w-man', 'demirobadboy', 'maki95', 'xnormie', 'garbonzotv', 'core_live', 'thejoker', 'wappyflanker', 'johnnygold', 'dariusirl', 'woodbabi', 'iceposeidon', 'ac7ionman', 'nanapips', 'amouranth', 'esaigivens', 'eli', 'mystickorth']);
+  const eliminated = new Set(['slykane', '22chainz', 'nedx', 'moises', 'moistcarrots', 'kick_clipz', 'bakedalaska', 'harmoneyes', 'rico-gotti', 'mrfunkefresh', 'bakedalaska', 's0fakinghigh', 'vaultkeeper', 'turbski1', 'dabdaddy420', 'bugsbunnywunnyy', 'tommytentoes', 'itsagee', 'weaselxo', 'imsamuel', 'cellfmade', 'pablovintura', 'double-w-man', 'demirobadboy', 'maki95', 'xnormie', 'garbonzotv', 'core_live', 'thejoker', 'wappyflanker', 'johnnygold', 'dariusirl', 'woodbabi', 'iceposeidon', 'ac7ionman', 'nanapips', 'amouranth', 'esaigivens', 'eli', 'mystickorth', 'fousey']);
 
   async function fetchStreamers() {
     try {
