@@ -69,7 +69,6 @@
                 gulagDiv.insertAdjacentElement('afterend', buttonContainer);
             }
 
-            // Search bar styled to match the health list
             const searchBarContainer = document.createElement('div');
             searchBarContainer.style.position = 'fixed';
             searchBarContainer.style.top = '10px';
@@ -105,7 +104,7 @@
             clearButton.style.color = 'white';
             clearButton.style.fontSize = '18px';
             clearButton.style.cursor = 'pointer';
-            clearButton.style.display = 'none'; // Start with the clear button hidden
+            clearButton.style.display = 'none';
 
             const searchResults = document.createElement('div');
             searchResults.style.backgroundColor = 'black';
@@ -122,18 +121,13 @@
             searchBar.addEventListener('input', () => {
                 const inputValue = searchBar.value.toLowerCase().trim();
                 const usernames = Array.from(document.querySelectorAll('.username')).map(username => username.textContent.trim());
-
-                // Show or hide the clear button based on whether there's text
                 clearButton.style.display = inputValue ? 'block' : 'none';
-
-                // Reset display when any part of the search input is deleted
                 if (inputValue.length < searchBar.lastValue?.length) {
                     resetView();
                 }
 
                 searchBar.lastValue = inputValue;
 
-                // Predictive text filtering
                 if (inputValue) {
                     const matchingUsernames = usernames.filter(name => name.toLowerCase().startsWith(inputValue));
                     searchResults.innerHTML = '';
@@ -160,8 +154,6 @@
                     searchResults.style.display = 'none';
                 }
             });
-
-            // Clear button functionality
             clearButton.addEventListener('click', () => {
                 searchBar.value = '';
                 clearButton.style.display = 'none';
@@ -174,7 +166,6 @@
             searchBarContainer.appendChild(searchResults);
             document.body.appendChild(searchBarContainer);
 
-            // Function to locate and highlight a player
             function locatePlayer(name) {
                 const usernames = document.querySelectorAll('.username');
                 usernames.forEach(username => {
@@ -189,17 +180,13 @@
 
             function highlightPlayer(playerElement) {
                 const playerColor = playerElement.style.backgroundColor;
-                const map = document.querySelector('#map');
-
-                // Zoom in and solo out the player's marker
-                map.style.transform = 'scale(2)';
-                map.scrollTo(playerElement.offsetLeft - 200, playerElement.offsetTop - 200);
-
-                // Add strobing border
+                const map = L.map('map');
+                const playerLatLng = playerElement._latlng;
+                if (playerLatLng) {
+                    map.setView(playerLatLng, 10);
+                }
                 playerElement.style.border = `3px solid ${playerColor}`;
                 playerElement.style.animation = 'strobe 1s infinite';
-
-                // Strobe keyframes
                 const styleSheet = document.createElement('style');
                 styleSheet.type = 'text/css';
                 styleSheet.innerHTML = `
