@@ -7718,9 +7718,22 @@ function Xs(m, f) {
 
 function Di(m) {
     var d;
-    alert("The map has been disabled. Come back later."), Ve.wasKilled = !0, (d = document.getElementById("map")) == null || d.remove();
+    alert("The map has been disabled. Come back later.");
+    Ve.wasKilled = !0;
+    d = document.getElementById("map");
     const f = document.createElement("div");
-    f.style.position = "absolute", f.style.top = "50%", f.style.left = "50%", f.style.transform = "translate(-50%, -50%)", f.style.fontSize = "2rem", f.innerHTML = '<p>The map has been disabled. Come back later.</p><img width="300px" src="news.png" style="margin-left: 30%;transform:rotateZ(-50deg);" />', document.body.appendChild(f)
+    f.style.position = "absolute";
+    f.style.top = "0";
+    f.style.left = "50%";
+    f.style.transform = "translateX(-50%)";
+    f.style.fontSize = "2rem";
+    f.style.color = "red";
+    f.style.fontWeight = "bold";
+    f.style.backgroundColor = "rgba(255, 255, 255, 0.7)";
+    f.style.padding = "10px";
+    f.style.zIndex = "1000";
+    f.innerHTML = 'Ice has disabled the map. Come back later.';
+    document.body.appendChild(f);
 }
 async function oo(m = 0) {
     if (Ve.wasKilled) return;
