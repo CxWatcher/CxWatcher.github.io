@@ -239,7 +239,7 @@
             let isListHovered = false;
 
             function updateList() {
-                fetch('https://appapi.iceposeidon.com/public')
+                fetch('https://api.iceposeidon.com/public')
                     .then(response => response.json())
                     .then(data => {
                         const sortedData = data.sort((a, b) => a.lives_remaining - b.lives_remaining);
@@ -279,9 +279,9 @@
                                     const usernames = document.querySelectorAll('.username');
                                     usernames.forEach(function (username) {
                                         const name = username.textContent.trim().toLowerCase();
-                                        if (toggledUsers[name]) {
+                                        if (toggledUsers[name] || isListHovered) {
                                             username.closest('.user-marker-inner').style.display = 'block';
-                                        } else if (!isListHovered) {
+                                        } else if (!isListHovered && !toggledUsers[name]) {
                                             username.closest('.user-marker-inner').style.display = 'none';
                                         }
                                     });
