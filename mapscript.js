@@ -15,7 +15,7 @@
 
             function changeUserBoxColor() {
                 const usernames = document.querySelectorAll('.username');
-                usernames.forEach(username => {
+                usernames.forEach(function(username) {
                     const name = username.textContent.trim();
                     if (teamColors[name]) {
                         username.closest('.user-marker-inner').style.backgroundColor = teamColors[name];
@@ -49,7 +49,7 @@
                     teamButton.addEventListener('click', () => {
                         const usernames = document.querySelectorAll('.username');
                         if (!buttonState[color]) {
-                            usernames.forEach(username => {
+                            usernames.forEach(function(username) {
                                 const name = username.textContent.trim();
                                 if (teamColors[name] === color) {
                                     username.closest('.user-marker-inner').style.display = 'block';
@@ -59,7 +59,7 @@
                             });
                             buttonState[color] = true;
                         } else {
-                            usernames.forEach(username => {
+                            usernames.forEach(function(username) {
                                 username.closest('.user-marker-inner').style.display = 'block';
                             });
                             buttonState[color] = false;
@@ -69,151 +69,7 @@
                 gulagDiv.insertAdjacentElement('afterend', buttonContainer);
             }
 
-            const searchBarContainer = document.createElement('div');
-            searchBarContainer.style.position = 'fixed';
-            searchBarContainer.style.top = '10px';
-            searchBarContainer.style.left = '50%';
-            searchBarContainer.style.transform = 'translateX(-50%)';
-            searchBarContainer.style.padding = '10px';
-            searchBarContainer.style.borderRadius = '8px';
-            searchBarContainer.style.width = '300px';
-            searchBarContainer.style.zIndex = '1001';
-            searchBarContainer.style.fontFamily = 'Arial, sans-serif';
-
-            const searchBar = document.createElement('input');
-            searchBar.type = 'text';
-            searchBar.placeholder = 'Search player...';
-            searchBar.style.width = '90%';
-            searchBar.style.padding = '10px';
-            searchBar.style.borderRadius = '8px';
-            searchBar.style.border = 'none';
-            searchBar.style.backgroundColor = 'black';
-            searchBar.style.color = 'green';
-            searchBar.style.fontFamily = 'Arial, sans-serif';
-            searchBar.style.fontSize = '16px';
-            searchBar.style.outline = 'none';
-
-            const clearButton = document.createElement('button');
-            clearButton.textContent = '✕';
-            clearButton.style.position = 'absolute';
-            clearButton.style.right = '20px';
-            clearButton.style.top = '50%';
-            clearButton.style.transform = 'translateY(-50%)';
-            clearButton.style.backgroundColor = 'transparent';
-            clearButton.style.border = 'none';
-            clearButton.style.color = 'white';
-            clearButton.style.fontSize = '18px';
-            clearButton.style.cursor = 'pointer';
-            clearButton.style.display = 'none';
-
-            const searchResults = document.createElement('div');
-            searchResults.style.backgroundColor = 'black';
-            searchResults.style.color = 'green';
-            searchResults.style.position = 'absolute';
-            searchResults.style.zIndex = '1001';
-            searchResults.style.borderRadius = '5px';
-            searchResults.style.marginTop = '5px';
-            searchResults.style.padding = '5px';
-            searchResults.style.width = '100%';
-            searchResults.style.display = 'none';
-            searchResults.style.fontFamily = 'Arial, sans-serif';
-
-            let isSearchActive = false;
-
-            searchBar.addEventListener('input', () => {
-                const inputValue = searchBar.value.toLowerCase().trim();
-                const usernames = Array.from(document.querySelectorAll('.username')).map(username => username.textContent.trim());
-
-                clearButton.style.display = inputValue ? 'block' : 'none';
-                isSearchActive = Boolean(inputValue);
-
-                if (inputValue.length < searchBar.lastValue?.length) {
-                    resetView();
-                }
-
-                searchBar.lastValue = inputValue;
-
-                if (inputValue) {
-                    const matchingUsernames = usernames.filter(name => name.toLowerCase().startsWith(inputValue));
-                    searchResults.innerHTML = '';
-                    searchResults.style.display = matchingUsernames.length ? 'block' : 'none';
-
-                    matchingUsernames.forEach(name => {
-                        const suggestion = document.createElement('div');
-                        suggestion.textContent = name;
-                        suggestion.style.cursor = 'pointer';
-                        suggestion.style.padding = '5px';
-                        suggestion.style.borderRadius = '5px';
-                        suggestion.style.backgroundColor = 'black';
-                        suggestion.style.color = 'green';
-                        suggestion.onmouseover = () => suggestion.style.backgroundColor = 'rgba(0, 255, 0, 0.2)';
-                        suggestion.onmouseout = () => suggestion.style.backgroundColor = 'black';
-                        suggestion.onclick = () => {
-                            searchBar.value = name;
-                            searchResults.style.display = 'none';
-                            locatePlayer(name);
-                        };
-                        searchResults.appendChild(suggestion);
-                    });
-                } else {
-                    searchResults.style.display = 'none';
-                }
-            });
-
-            clearButton.addEventListener('click', () => {
-                searchBar.value = '';
-                clearButton.style.display = 'none';
-                searchResults.style.display = 'none';
-                resetView();
-            });
-
-            searchBarContainer.appendChild(searchBar);
-            searchBarContainer.appendChild(clearButton);
-            searchBarContainer.appendChild(searchResults);
-            document.body.appendChild(searchBarContainer);
-
-            function locatePlayer(name) {
-                const usernames = document.querySelectorAll('.username');
-                usernames.forEach(username => {
-                    if (username.textContent.trim() === name) {
-                        username.closest('.user-marker-inner').style.display = 'block';
-                        highlightPlayer(username.closest('.user-marker-inner'));
-                    } else {
-                        username.closest('.user-marker-inner').style.display = 'none';
-                    }
-                });
-            }
-
-            function highlightPlayer(playerElement) {
-                const playerColor = playerElement.style.backgroundColor;
-                const map = document.querySelector('#map');
-
-                map.scrollTo(playerElement.offsetLeft - 200, playerElement.offsetTop - 200);
-
-                playerElement.style.border = `3px solid ${playerColor}`;
-                playerElement.style.animation = 'strobe 1s infinite';
-                const styleSheet = document.createElement('style');
-                styleSheet.type = 'text/css';
-                styleSheet.innerHTML = `
-                    @keyframes strobe {
-                        0% { box-shadow: 0 0 5px ${playerColor}; }
-                        50% { box-shadow: 0 0 20px ${playerColor}; }
-                        100% { box-shadow: 0 0 5px ${playerColor}; }
-                    }
-                `;
-                document.head.appendChild(styleSheet);
-            }
-
-            function resetView() {
-                const map = document.querySelector('#map');
-                const playerElements = document.querySelectorAll('.user-marker-inner');
-                playerElements.forEach(player => {
-                    player.style.display = 'block';
-                    player.style.border = 'none';
-                    player.style.animation = 'none';
-                });
-            }
-
+            // Insert data list to the bottom left
             const dataListContainer = document.createElement('div');
             dataListContainer.style.position = 'fixed';
             dataListContainer.style.bottom = '10px';
@@ -236,8 +92,6 @@
             document.body.appendChild(dataListContainer);
 
             const toggledUsers = {};
-            let isListHovered = false;
-
             function updateList() {
                 fetch('https://appapi.iceposeidon.com/public')
                     .then(response => response.json())
@@ -257,16 +111,14 @@
                             listItem.appendChild(livesText);
                             list.appendChild(listItem);
                             const nameLower = entry.name.toLowerCase();
-
                             listItem.addEventListener('mouseover', () => {
-                                if (!isSearchActive) {
-                                    isListHovered = true;
+                                if (Object.keys(toggledUsers).length === 0) {
                                     const usernames = document.querySelectorAll('.username');
                                     usernames.forEach(function (username) {
                                         const name = username.textContent.trim().toLowerCase();
                                         if (name === nameLower) {
                                             username.closest('.user-marker-inner').style.display = 'block';
-                                        } else if (!toggledUsers[nameLower]) {
+                                        } else {
                                             username.closest('.user-marker-inner').style.display = 'none';
                                         }
                                     });
@@ -274,22 +126,16 @@
                             });
 
                             listItem.addEventListener('mouseout', () => {
-                                if (!isSearchActive) {
-                                    isListHovered = false;
+                                if (Object.keys(toggledUsers).length === 0) {
                                     const usernames = document.querySelectorAll('.username');
                                     usernames.forEach(function (username) {
-                                        const name = username.textContent.trim().toLowerCase();
-                                        if (toggledUsers[name] || isListHovered) {
-                                            username.closest('.user-marker-inner').style.display = 'block';
-                                        } else if (!isListHovered && !toggledUsers[name]) {
-                                            username.closest('.user-marker-inner').style.display = 'none';
-                                        }
+                                        username.closest('.user-marker-inner').style.display = 'block';
                                     });
                                 }
                             });
-
                             listItem.addEventListener('click', () => {
                                 const usernames = document.querySelectorAll('.username');
+
                                 if (toggledUsers[nameLower]) {
                                     usernames.forEach(function (username) {
                                         if (username.textContent.trim().toLowerCase() === nameLower) {
@@ -306,18 +152,16 @@
                                             username.closest('.user-marker-inner').style.display = 'none';
                                         }
                                     });
+
                                     listItem.style.backgroundColor = 'green';
                                     toggledUsers[nameLower] = true;
                                 }
-
-                                // Update visibility based on toggled users
-                                const updatedUsernames = document.querySelectorAll('.username');
-                                if (Object.keys(toggledUsers).length === 0) {
-                                    // If no players are toggled, show all players
-                                    updatedUsernames.forEach(username => {
+                                usernames.forEach(function (username) {
+                                    const name = username.textContent.trim().toLowerCase();
+                                    if (toggledUsers[name]) {
                                         username.closest('.user-marker-inner').style.display = 'block';
-                                    });
-                                }
+                                    }
+                                });
                             });
 
                             if (toggledUsers[nameLower]) {
@@ -332,19 +176,12 @@
                                 username.closest('.user-marker-inner').style.display = 'block';
                             }
                         });
-
-                        if (Object.keys(toggledUsers).length === 0) {
-                            // If no players are toggled, show all players
-                            usernames.forEach(username => {
-                                username.closest('.user-marker-inner').style.display = 'block';
-                            });
-                        }
                     })
                     .catch(error => console.error('Error fetching data:', error));
             }
 
             updateList();
-            setInterval(updateList, 5000);
+            setInterval(updateList, 10000);
         })
         .catch(error => console.error('Error fetching team colors:', error));
 })();
