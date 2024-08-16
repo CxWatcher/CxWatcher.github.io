@@ -278,7 +278,8 @@
                                     isListHovered = false;
                                     const usernames = document.querySelectorAll('.username');
                                     usernames.forEach(function (username) {
-                                        if (toggledUsers[username.textContent.trim().toLowerCase()]) {
+                                        const name = username.textContent.trim().toLowerCase();
+                                        if (toggledUsers[name]) {
                                             username.closest('.user-marker-inner').style.display = 'block';
                                         } else {
                                             username.closest('.user-marker-inner').style.display = 'block';
@@ -324,6 +325,13 @@
                                 username.closest('.user-marker-inner').style.display = 'block';
                             }
                         });
+
+                        if (Object.keys(toggledUsers).length === 0) {
+                            // If no players are toggled, show all
+                            usernames.forEach(username => {
+                                username.closest('.user-marker-inner').style.display = 'block';
+                            });
+                        }
                     })
                     .catch(error => console.error('Error fetching data:', error));
             }
