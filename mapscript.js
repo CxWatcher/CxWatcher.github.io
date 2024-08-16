@@ -175,14 +175,14 @@
                 usernames.forEach(username => {
                     if (username.textContent.trim() === name) {
                         username.closest('.user-marker-inner').style.display = 'block';
-                        highlightPlayer(username.closest('.user-marker-inner'), usernames);
+                        highlightPlayer(username.closest('.user-marker-inner'));
                     } else {
                         username.closest('.user-marker-inner').style.display = 'none';
                     }
                 });
             }
 
-            function highlightPlayer(playerElement, usernames) {
+            function highlightPlayer(playerElement) {
                 const playerColor = playerElement.style.backgroundColor;
                 const map = document.querySelector('#map');
 
@@ -200,16 +200,6 @@
                     }
                 `;
                 document.head.appendChild(styleSheet);
-
-                const teamButtons = document.querySelectorAll('button');
-                teamButtons.forEach(button => {
-                    button.addEventListener('click', () => {
-                        map.style.transform = 'scale(1)';
-                        playerElement.style.border = 'none';
-                        playerElement.style.animation = 'none';
-                        usernames.forEach(username => username.closest('.user-marker-inner').style.display = 'block');
-                    });
-                });
             }
 
             function resetView() {
@@ -263,8 +253,9 @@
                             listItem.appendChild(livesText);
                             list.appendChild(listItem);
                             const nameLower = entry.name.toLowerCase();
+
                             listItem.addEventListener('mouseover', () => {
-                                if (Object.keys(toggledUsers).length === 0) {
+                                if (!searchBar.value) {
                                     const usernames = document.querySelectorAll('.username');
                                     usernames.forEach(function (username) {
                                         const name = username.textContent.trim().toLowerCase();
@@ -278,7 +269,7 @@
                             });
 
                             listItem.addEventListener('mouseout', () => {
-                                if (Object.keys(toggledUsers).length === 0) {
+                                if (!searchBar.value) {
                                     const usernames = document.querySelectorAll('.username');
                                     usernames.forEach(function (username) {
                                         username.closest('.user-marker-inner').style.display = 'block';
@@ -309,6 +300,7 @@
                                     listItem.style.backgroundColor = 'green';
                                     toggledUsers[nameLower] = true;
                                 }
+
                                 usernames.forEach(function (username) {
                                     const name = username.textContent.trim().toLowerCase();
                                     if (toggledUsers[name]) {
