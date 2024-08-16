@@ -47,7 +47,7 @@
                     buttonState[color] = false;
 
                     teamButton.addEventListener('click', () => {
-                        const usernames = document.querySelectorAll('.username');
+                        const usernames = document.querySelectorAll('.username'); // Define usernames here
                         if (!buttonState[color]) {
                             usernames.forEach(function(username) {
                                 const name = username.textContent.trim();
