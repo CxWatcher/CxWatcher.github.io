@@ -187,10 +187,24 @@
                 });
             }
 
-            function highlightPlayer(playerElement) {
+            function highlightPlayer(playerElement, usernames) {
                 const playerColor = playerElement.style.backgroundColor;
                 const map = document.querySelector('#map');
-                map.scrollTo(playerElement.offsetLeft - 200, playerElement.offsetTop - 200);
+                
+                // Assuming map uses Leaflet, adjust the zoom and center logic as needed
+                const mapInstance = L.map(document.querySelector('#map'));
+                const playerPosition = playerElement.getBoundingClientRect();
+                const mapContainer = document.querySelector('#map').getBoundingClientRect();
+                
+                // Calculate the offset to center the player element
+                const centerLat = mapInstance.getCenter().lat;
+                const centerLng = mapInstance.getCenter().lng;
+                const offsetX = (playerPosition.left - mapContainer.left) / mapContainer.width;
+                const offsetY = (playerPosition.top - mapContainer.top) / mapContainer.height;
+                
+                // Adjust the view to focus on the player
+                mapInstance.setView([centerLat + offsetY, centerLng + offsetX], mapInstance.getZoom() + 1);
+            
                 playerElement.style.border = `3px solid ${playerColor}`;
                 playerElement.style.animation = 'strobe 1s infinite';
                 const styleSheet = document.createElement('style');
@@ -203,6 +217,7 @@
                     }
                 `;
                 document.head.appendChild(styleSheet);
+                
                 const teamButtons = document.querySelectorAll('button');
                 teamButtons.forEach(button => {
                     button.addEventListener('click', () => {
@@ -213,6 +228,7 @@
                     });
                 });
             }
+
 
             function resetView() {
                 const map = document.querySelector('#map');
