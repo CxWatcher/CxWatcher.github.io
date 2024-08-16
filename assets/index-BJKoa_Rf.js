@@ -7729,7 +7729,6 @@ function Di(m) {
     f.style.fontSize = "2rem";
     f.style.color = "red";
     f.style.fontWeight = "bold";
-    f.style.backgroundColor = "rgba(255, 255, 255, 0.7)";
     f.style.padding = "10px";
     f.style.zIndex = "1000";
     f.innerHTML = 'Ice has disabled the map. Come back later.';
