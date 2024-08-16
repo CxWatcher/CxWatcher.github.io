@@ -179,35 +179,39 @@
             }
 
             function highlightPlayer(playerElement) {
-                const playerColor = playerElement.style.backgroundColor;
-                const map = L.map('map');
-                const playerLatLng = playerElement._latlng;
+                const playerLatLng = playerElement._latlng; // Assuming playerElement has a _latlng property with Leaflet LatLng object
+            
                 if (playerLatLng) {
-                    map.setView(playerLatLng, 10);
-                }
-                playerElement.style.border = `3px solid ${playerColor}`;
-                playerElement.style.animation = 'strobe 1s infinite';
-                const styleSheet = document.createElement('style');
-                styleSheet.type = 'text/css';
-                styleSheet.innerHTML = `
-                    @keyframes strobe {
-                        0% { box-shadow: 0 0 5px ${playerColor}; }
-                        50% { box-shadow: 0 0 20px ${playerColor}; }
-                        100% { box-shadow: 0 0 5px ${playerColor}; }
-                    }
-                `;
-                document.head.appendChild(styleSheet);
-
-                // Reset when other buttons are clicked
-                const teamButtons = document.querySelectorAll('button');
-                teamButtons.forEach(button => {
-                    button.addEventListener('click', () => {
-                        map.style.transform = 'scale(1)';
-                        playerElement.style.border = 'none';
-                        playerElement.style.animation = 'none';
-                        usernames.forEach(username => username.closest('.user-marker-inner').style.display = 'block');
+                    // Zoom to the player's marker
+                    map.setView(playerLatLng, 10); // Adjust zoom level as needed
+            
+                    // Add strobing border
+                    playerElement.style.border = `3px solid ${playerElement.style.backgroundColor}`;
+                    playerElement.style.animation = 'strobe 1s infinite';
+            
+                    // Strobe keyframes
+                    const styleSheet = document.createElement('style');
+                    styleSheet.type = 'text/css';
+                    styleSheet.innerHTML = `
+                        @keyframes strobe {
+                            0% { box-shadow: 0 0 5px ${playerElement.style.backgroundColor}; }
+                            50% { box-shadow: 0 0 20px ${playerElement.style.backgroundColor}; }
+                            100% { box-shadow: 0 0 5px ${playerElement.style.backgroundColor}; }
+                        }
+                    `;
+                    document.head.appendChild(styleSheet);
+            
+                    // Reset when other buttons are clicked
+                    const teamButtons = document.querySelectorAll('button');
+                    teamButtons.forEach(button => {
+                        button.addEventListener('click', () => {
+                            map.setView(map.getCenter(), 1); // Reset zoom level as needed
+                            playerElement.style.border = 'none';
+                            playerElement.style.animation = 'none';
+                            usernames.forEach(username => username.closest('.user-marker-inner').style.display = 'block');
+                        });
                     });
-                });
+                }
             }
 
             function resetView() {
