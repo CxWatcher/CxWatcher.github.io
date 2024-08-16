@@ -7729,9 +7729,12 @@ function Di(m) {
     f.style.fontSize = "2rem";
     f.style.color = "red";
     f.style.fontWeight = "bold";
-    f.style.padding = "10px";
+    f.style.backgroundColor = "rgba(255, 255, 255, 0.9)";
+    f.style.padding = "15px 30px";
+    f.style.borderRadius = "25px";
+    f.style.boxShadow = "0px 4px 10px rgba(0, 0, 0, 0.2)";
     f.style.zIndex = "1000";
-    f.innerHTML = 'Ice has disabled the map. Come back later.';
+    f.innerHTML = 'The map has been disabled. Come back later.';
     document.body.appendChild(f);
 }
 async function oo(m = 0) {
