@@ -181,7 +181,7 @@
             }
 
             updateList();
-            setInterval(updateList, 10000);
+            setInterval(updateList, 3000);
         })
         .catch(error => console.error('Error fetching team colors:', error));
 })();
