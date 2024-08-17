@@ -96,7 +96,8 @@
                 fetch('https://appapi.iceposeidon.com/public')
                     .then(response => response.json())
                     .then(data => {
-                        const sortedData = data.sort((a, b) => a.lives_remaining - b.lives_remaining);
+                        const filteredData = data.filter(user => !user.is_eliminated);
+                        const sortedData = filteredData.sort((a, b) => a.lives_remaining - b.lives_remaining);
                         const list = document.getElementById('data-list');
                         list.innerHTML = '';
 
