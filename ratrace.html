@@ -46,6 +46,75 @@
             padding: 0;
             display: block;
         }
+	.map-logo {
+    position: fixed;
+    top: 5px;
+    right: 5px;
+    width: 60px;
+    height: 60px;
+    background-color: #007BFF;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    z-index: 10000; 
+}
+
+.map-logo img {
+    width: 40px;
+    height: 40px;
+}
+
+.map-logo:hover {
+    transform: scale(1.1);
+}
+
+.popup-iframe {
+    position: fixed;
+    top: 5%;
+    left: 5%;
+    width: 90%;
+    height: 90%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    padding: 10px;
+    box-sizing: border-box;
+    z-index: 9999;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.popup-iframe iframe {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.popup-iframe.show {
+    display: flex;
+    transform: scale(1);
+    opacity: 1;
+}
+
+.popup-iframe.hide {
+    transform: scale(0.8);
+    opacity: 0;
+}
+#watermark {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 9999;
+}
+
+#watermark img {
+  width: 100px;
+  height: auto; 
+}
     </style>
     <link rel="icon" href="favicon.ico">
 </head>
@@ -73,6 +142,17 @@
         <div class="col">
             <iframe src="embed.html?user=xgewnx" scrolling="no" frameborder="0"></iframe>
         </div>
+    </div>
+    <div class="map-logo" id="mapLogo">
+        <img src="map.png" alt="Map Logo">
+    </div>
+<div id="watermark">
+  <a href="https://dsc.gg/kickclipper" target="_blank">
+    <img src="clipit.png" alt="Watermark" />
+  </a>
+</div>
+    <div class="popup-iframe hide" id="popupIframe">
+        <iframe src="https://iceposeidon.com/map" frameborder="0"></iframe>
     </div>
     <script type="text/javascript">
         var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
