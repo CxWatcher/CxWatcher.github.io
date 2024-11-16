@@ -12,7 +12,6 @@ if (!base64Url) {
 } else {
   try {
     const decodedUrl = atob(base64Url); // Decode the base64-encoded URL
-    const src = `https://api.codetabs.com/v1/proxy/?quest=${decodedUrl}`;
     registerIVSTech(videojs);
     registerIVSQualityPlugin(videojs);
     const player = videojs("amazon-ivs-videojs", {
@@ -34,7 +33,7 @@ if (!base64Url) {
 
     player.enableIVSQualityPlugin();
 
-    player.src({ type: 'application/x-mpegURL', src });
+    player.src({ type: 'application/x-mpegURL', src: decodedUrl });
 
     function toggleFullscreen() {
       const videoContainer = document.getElementById('video-container');
@@ -48,7 +47,7 @@ if (!base64Url) {
     }
 
     function retryLoad() {
-      player.src({ type: 'application/x-mpegURL', src });
+      player.src({ type: 'application/x-mpegURL', src: decodedUrl });
       player.play();
     }
 
