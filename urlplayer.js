@@ -34,7 +34,7 @@ if (!base64Url) {
 
     player.enableIVSQualityPlugin();
 
-    player.src({ type: 'application/x-mpegURL', src: src });
+    player.src({ type: 'application/x-mpegURL', src });
 
     function toggleFullscreen() {
       const videoContainer = document.getElementById('video-container');
@@ -48,7 +48,7 @@ if (!base64Url) {
     }
 
     function retryLoad() {
-      player.src({ type: 'application/x-mpegURL', src: src });
+      player.src({ type: 'application/x-mpegURL', src });
       player.play();
     }
 
