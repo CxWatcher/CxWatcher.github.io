@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     searchInput.addEventListener('input', function() {
         const query = this.value;
-        if (query.length > 0) {
+        if (query.length > 2) {
             fetchSuggestions(query);
         } else {
             suggestionsContainer.innerHTML = '';
@@ -54,6 +54,9 @@ document.addEventListener('DOMContentLoaded', function() {
         streamElement.className = 'stream';
         streamElement.innerHTML = `
             <video id="video-${slug}" class="video-js vjs-4-3 vjs-big-play-centered" controls autoplay playsinline></video>
+            <div id="chat-container">
+                <iframe id="chat" src="https://cxwatcher.github.io/chat?user=${slug}&animate=true&badges=true&commands=true&bots=true&textsize=15px" referrerpolicy="no-referrer"></iframe>
+            </div>
         `;
         streamsContainer.appendChild(streamElement);
 
