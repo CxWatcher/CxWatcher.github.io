@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'x-typesense-api-key': 'nXIMW0iEN6sMujFYjFuhdrSwVow3pDQu'
             },
             body: JSON.stringify({
                 searches: [{
