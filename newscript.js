@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     searchInput.addEventListener('input', function() {
         const query = this.value;
-        if (query.length > 2) {
+        if (query.length > 0) {
             fetchSuggestions(query);
         } else {
             suggestionsContainer.innerHTML = '';
