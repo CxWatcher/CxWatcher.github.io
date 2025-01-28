@@ -1,92 +1,112 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('streamer-search');
-    const suggestionsContainer = document.getElementById('suggestions');
-    const streamsContainer = document.getElementById('streams-container');
+const chatIframe = document.getElementById("chat");
+const overlayBtn = document.querySelector('.overlay-btn');
+let currentstreamer = "iceposeidon";
+let checking = false;
 
-    searchInput.addEventListener('input', function() {
-        const query = this.value;
-        if (query.length > 2) {
-            fetchSuggestions(query);
-        } else {
-            suggestionsContainer.innerHTML = '';
-        }
-    });
+// Initialize Video.js player
+const video = document.getElementById('amazon-ivs-videojs');
+registerIVSTech(videojs);
+registerIVSQualityPlugin(videojs);
 
-    function fetchSuggestions(query) {
-        fetch('https://search.kick.com/multi_search', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-typesense-api-key': 'nXIMW0iEN6sMujFYjFuhdrSwVow3pDQu'
-            },
-            body: JSON.stringify({
-                searches: [{
-                    preset: 'channel_search',
-                    q: query
-                }]
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            displaySuggestions(data.results[0].hits);
-        })
-        .catch(error => console.error('Error fetching suggestions:', error));
-    }
-
-    function displaySuggestions(hits) {
-        suggestionsContainer.innerHTML = hits.map(hit => `
-            <div class="suggestion-item" data-slug="${hit.document.slug}">
-                ${hit.document.username}
-            </div>
-        `).join('');
-
-        document.querySelectorAll('.suggestion-item').forEach(item => {
-            item.addEventListener('click', function() {
-                addStream(this.dataset.slug);
-                searchInput.value = '';
-                suggestionsContainer.innerHTML = '';
-            });
-        });
-    }
-
-    function addStream(slug) {
-        const streamElement = document.createElement('div');
-        streamElement.className = 'stream';
-        streamElement.innerHTML = `
-            <video id="video-${slug}" class="video-js vjs-4-3 vjs-big-play-centered" controls autoplay playsinline></video>
-            <div id="chat-container">
-                <iframe id="chat" src="https://cxwatcher.github.io/chat?user=${slug}&animate=true&badges=true&commands=true&bots=true&textsize=15px" referrerpolicy="no-referrer"></iframe>
-            </div>
-        `;
-        streamsContainer.appendChild(streamElement);
-
-        const player = videojs(`video-${slug}`, {
-            techOrder: ["AmazonIVS"],
-            controls: true,
-            liveui: true,
-            bigPlayButton: true,
-            controlBar: {
-                volumePanel: {
-                    inline: false
-                },
-                pictureInPictureToggle: false
-            },
-            amazonIVS: {
-                heartbeat: 500,
-                reconnect: true
-            }
-        });
-
-        player.enableIVSQualityPlugin();
-
-        fetch(`https://kick.com/api/v2/channels/${slug}`)
-            .then(response => response.json())
-            .then(data => {
-                const playback_url = data.playback_url;
-                const src = `https://api.codetabs.com/v1/proxy/?quest=${playback_url}`;
-                player.src({ type: 'application/x-mpegURL', src });
-                player.play();
-            })
-            .catch(error => console.error(error));
+const player = videojs("amazon-ivs-videojs", {
+    techOrder: ["AmazonIVS"],
+    controls: true,
+    liveui: true,
+    bigPlayButton: true,
+    controlBar: {
+        volumePanel: {
+            inline: false
+        },
+        pictureInPictureToggle: false
+    },
+    amazonIVS: {
+        heartbeat: 500,
+        reconnect: true
     }
 });
+
+player.enableIVSQualityPlugin();
+
+// Load initial stream
+fetch(`https://kick.com/api/v2/channels/${currentstreamer}`)
+    .then(response => response.json())
+    .then(data => {
+        const playback_url = data.playback_url;
+        const src = `https://api.codetabs.com/v1/proxy/?quest=${playback_url}`;
+        player.src({ type: 'application/x-mpegURL', src });
+        player.play();
+    })
+    .catch(error => console.error(error));
+
+// Overlay button to change stream
+overlayBtn.addEventListener('click', function() {
+    const userInput = prompt('Enter a kick channel:');
+    if (userInput) {
+        currentstreamer = userInput;
+        retryLoad();
+        player.poster('https://i.imgur.com/G2zhTfr.png');
+        changeIframeSource(`https://cxwatcher.github.io/chat?user=${userInput}&animate=true&badges=true&commands=true&bots=true&textsize=15px`);
+    }
+});
+
+// Change iframe source
+function changeIframeSource(newSrc) {
+    chatIframe.src = newSrc;
+}
+
+// Retry loading the stream
+function retryLoad() {
+    fetch(`https://kick.com/api/v2/channels/${currentstreamer}`)
+        .then(response => response.json())
+        .then(data => {
+            const playback_url = data.playback_url;
+            const src = `https://api.codetabs.com/v1/proxy/?quest=${playback_url}`;
+            player.src({ type: 'application/x-mpegURL', src });
+            player.play();
+            setTimeout(() => checking = false, 2000);
+        })
+        .catch(error => console.error(error));
+}
+
+// Reload chat
+function reloadChat() {
+    chatIframe.src = chatIframe.src;
+}
+
+// Check player state and reconnect if offline
+function checkPlayerState() {
+    if (!checking && player.readyState() === 0) {
+        console.log(`Stream Offline, Trying to reconnect to ${currentstreamer}`);
+        checking = true;
+        retryLoad();
+    }
+}
+
+// Player event listeners
+player.on('pause', function() {
+    console.log(`Player Paused`);
+    checking = true;
+});
+
+player.on('play', function() {
+    console.log(`Player Playing`);
+    checking = false;
+});
+
+// Set intervals for checking player state and reloading chat
+setInterval(checkPlayerState, 5000);
+setInterval(reloadChat, 30 * 60 * 1000);
+
+// Fullscreen toggle
+function toggleFullscreen() {
+    const videoContainer = document.getElementById('video-container');
+    videoContainer.classList.toggle('fullscreen');
+    const fullscreenButton = document.getElementById('fullscreen-button');
+    if (videoContainer.classList.contains('fullscreen')) {
+        fullscreenButton.src = 'https://i.imgur.com/bf2rPEp.png';
+        chatIframe.style.display = 'none';
+    } else {
+        fullscreenButton.src = 'https://i.imgur.com/Zo9GjgJ.png';
+        chatIframe.style.display = 'block';
+    }
+}
