@@ -97,16 +97,15 @@ player.on('play', function() {
 setInterval(checkPlayerState, 5000);
 setInterval(reloadChat, 30 * 60 * 1000);
 
-// Fullscreen toggle
+// Toggle chat overlay visibility
 function toggleFullscreen() {
-    const videoContainer = document.getElementById('video-container');
-    videoContainer.classList.toggle('fullscreen');
+    const chatIframe = document.getElementById('chat');
     const fullscreenButton = document.getElementById('fullscreen-button');
-    if (videoContainer.classList.contains('fullscreen')) {
-        fullscreenButton.src = 'https://i.imgur.com/bf2rPEp.png';
-        chatIframe.style.display = 'none';
-    } else {
+    if (chatIframe.style.display === 'none') {
         fullscreenButton.src = 'https://i.imgur.com/Zo9GjgJ.png';
         chatIframe.style.display = 'block';
+    } else {
+        fullscreenButton.src = 'https://i.imgur.com/bf2rPEp.png';
+        chatIframe.style.display = 'none';
     }
 }
