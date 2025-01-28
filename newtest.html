@@ -7,47 +7,138 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.14.3/video-js.css" rel="stylesheet">
     <link rel="stylesheet" href="lit.css">
     <style>
-    #chat-container {
-      position: absolute;
-      bottom: 32px;
-      left: 0;
-      width: 40vw;
-      height: 40vh;
-      z-index: 1; 
-      overflow: hidden; 
-      pointer-events: none;
-    }
+        /* Purple theme */
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
-    #chat {
-      width: 100%;
-      height: 100%;
-      border: none;
-      user-select: none;
-    }
-    .vjs-icon-placeholder {
-      z-index: 4;
-    }
- .vjs-control-bar {
-      z-index: 4;
-    }
-  .video-js.vjs-fullscreen #chat-container {
-    z-index: 9999;
-  }
-</style>
+        #search-container {
+            padding: 20px;
+            text-align: center;
+            background-color: #2a2a2a;
+        }
+
+        #streamer-search {
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #3a3a3a;
+            color: #ffffff;
+            border: 1px solid #6a1b9a;
+            border-radius: 5px;
+        }
+
+        #suggestions {
+            margin-top: 10px;
+            background-color: #3a3a3a;
+            border-radius: 5px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .suggestion-item {
+            padding: 10px;
+            cursor: pointer;
+            background-color: #4a4a4a;
+            margin: 5px 0;
+            border-radius: 5px;
+            color: #ffffff;
+        }
+
+        .suggestion-item:hover {
+            background-color: #6a1b9a;
+        }
+
+        #streams-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 20px;
+        }
+
+        .stream {
+            flex: 1 1 calc(50% - 10px);
+            min-width: 300px;
+            position: relative;
+            background-color: #2a2a2a;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .video-js {
+            width: 100%;
+            height: 100%;
+        }
+
+        #chat-container {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            width: 300px;
+            height: 200px;
+            z-index: 1000;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 5px;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        #chat {
+            width: 100%;
+            height: 100%;
+            border: none;
+            pointer-events: none;
+        }
+
+        #overlay-two {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+        }
+
+        #fullscreen-button {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+
+        #fullscreen-button:hover {
+            opacity: 1;
+        }
+
+        .overlay {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .overlay-btn {
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+
+        .overlay-btn:hover {
+            opacity: 1;
+        }
+    </style>
 </head>
 <body>
-    <div id="video-container">
-        <div id="overlay-two">
-  <img id="fullscreen-button" src="https://i.imgur.com/Zo9GjgJ.png" alt="Fullscreen button" onclick="toggleFullscreen()" />
-</div>
-        <video id="amazon-ivs-videojs" class="video-js vjs-4-3 vjs-big-play-centered" controls autoplay playsinline></video>
-        <div id="chat-container">
-            <iframe id="chat" src="https://cxwatcher.github.io/chat?user=iceposeidon&animate=true&badges=true&commands=true&bots=true&textsize=15px" referrerpolicy="no-referrer"></iframe>
-        </div>
+    <div id="search-container">
+        <input type="text" id="streamer-search" placeholder="Search for a streamer...">
+        <div id="suggestions"></div>
     </div>
-    <div class="overlay">
-        <img src="https://i.imgur.com/DpIbA7m.png" alt="Click me" class="overlay-btn">
-    </div>
+    <div id="streams-container"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.14.3/video.min.js"></script>
     <script src="https://player.live-video.net/1.18.0/amazon-ivs-videojs-tech.min.js"></script>
