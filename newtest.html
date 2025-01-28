@@ -8,11 +8,15 @@
     <link rel="stylesheet" href="lit.css">
 </head>
 <body>
-    <div id="search-container">
-        <input type="text" id="streamer-search" placeholder="Search for a streamer...">
-        <div id="suggestions"></div>
+    <div id="video-container">
+        <video id="amazon-ivs-videojs" class="video-js vjs-4-3 vjs-big-play-centered" controls autoplay playsinline></video>
+        <div id="chat-container">
+            <iframe id="chat" src="https://cxwatcher.github.io/chat?user=iceposeidon&animate=true&badges=true&commands=true&bots=true&textsize=15px" referrerpolicy="no-referrer"></iframe>
+        </div>
     </div>
-    <div id="streams-container"></div>
+    <div class="overlay">
+        <img src="https://i.imgur.com/DpIbA7m.png" alt="Click me" class="overlay-btn">
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.14.3/video.min.js"></script>
     <script src="https://player.live-video.net/1.18.0/amazon-ivs-videojs-tech.min.js"></script>
