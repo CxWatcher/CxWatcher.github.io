@@ -6,9 +6,40 @@
     <title>Multi-Kick Viewer</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.14.3/video-js.css" rel="stylesheet">
     <link rel="stylesheet" href="lit.css">
+    <style>
+    #chat-container {
+      position: absolute;
+      bottom: 32px;
+      left: 0;
+      width: 40vw;
+      height: 40vh;
+      z-index: 1; 
+      overflow: hidden; 
+      pointer-events: none;
+    }
+
+    #chat {
+      width: 100%;
+      height: 100%;
+      border: none;
+      user-select: none;
+    }
+    .vjs-icon-placeholder {
+      z-index: 4;
+    }
+ .vjs-control-bar {
+      z-index: 4;
+    }
+  .video-js.vjs-fullscreen #chat-container {
+    z-index: 9999;
+  }
+</style>
 </head>
 <body>
     <div id="video-container">
+        <div id="overlay-two">
+  <img id="fullscreen-button" src="https://i.imgur.com/Zo9GjgJ.png" alt="Fullscreen button" onclick="toggleFullscreen()" />
+</div>
         <video id="amazon-ivs-videojs" class="video-js vjs-4-3 vjs-big-play-centered" controls autoplay playsinline></video>
         <div id="chat-container">
             <iframe id="chat" src="https://cxwatcher.github.io/chat?user=iceposeidon&animate=true&badges=true&commands=true&bots=true&textsize=15px" referrerpolicy="no-referrer"></iframe>
