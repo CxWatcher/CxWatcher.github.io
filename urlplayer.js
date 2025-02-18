@@ -4,14 +4,17 @@ const video = document.getElementById('amazon-ivs-videojs');
 
 if (!base64Url) {
   document.body.innerHTML = '';
-
   const errorMessage = document.createElement('div');
-  errorMessage.innerText = 'ERROR: Incorrect Use\nExample: https://cxwatcher.github.io/embed.html?url=<BASE64_ENCODED_URL>';
+  errorMessage.innerText = 'ERROR: Incorrect Use\nExample: https://yourdomain.com/embed.html?url=<BASE64_ENCODED_URL>';
   errorMessage.style.fontSize = '18px';
   document.body.appendChild(errorMessage);
 } else {
   try {
-    const decodedUrl = atob(base64Url); // Decode the base64-encoded URL
+    // Decode URL encoding before base64 decoding
+    const decodedBase64 = decodeURIComponent(base64Url);
+    console.log("Decoded from URL encoding:", decodedBase64);
+    const decodedUrl = atob(decodedBase64); // Now decode the Base64 string
+    console.log("Final decoded URL:", decodedUrl);
 
     const srcc = `https://api.codetabs.com/v1/proxy/?quest=${decodedUrl}`;
     registerIVSTech(videojs);
@@ -34,7 +37,6 @@ if (!base64Url) {
     });
 
     player.enableIVSQualityPlugin();
-
     player.src({ type: 'application/x-mpegURL', src: srcc });
 
     function toggleFullscreen() {
