@@ -4,19 +4,23 @@ const video = document.getElementById('amazon-ivs-videojs');
 
 if (!base64Url) {
   document.body.innerHTML = '';
+
   const errorMessage = document.createElement('div');
-  errorMessage.innerText = 'ERROR: Incorrect Use\nExample: https://yourdomain.com/embed.html?url=<BASE64_ENCODED_URL>';
+  errorMessage.innerText =
+    'ERROR: Incorrect Use\nExample: https://cxwatcher.github.io/embed.html?url=<BASE64_ENCODED_URL>';
   errorMessage.style.fontSize = '18px';
   document.body.appendChild(errorMessage);
 } else {
   try {
-    // Decode URL encoding before base64 decoding
-    const decodedBase64 = decodeURIComponent(base64Url);
-    console.log("Decoded from URL encoding:", decodedBase64);
-    const decodedUrl = atob(decodedBase64); // Now decode the Base64 string
-    console.log("Final decoded URL:", decodedUrl);
+    // Decode the Base64 string. If your string is URL-encoded, use decodeURIComponent first.
+    // const decodedBase64 = decodeURIComponent(base64Url);
+    const decodedUrl = atob(base64Url);
+    console.log("Decoded URL:", decodedUrl);
 
-    const srcc = `https://api.codetabs.com/v1/proxy/?quest=${decodedUrl}`;
+    // Append the proxy to the decoded URL.
+    const proxyUrl = `https://api.codetabs.com/v1/proxy/?quest=${decodedUrl}`;
+    console.log("Proxy URL:", proxyUrl);
+
     registerIVSTech(videojs);
     registerIVSQualityPlugin(videojs);
     const player = videojs("amazon-ivs-videojs", {
@@ -37,7 +41,9 @@ if (!base64Url) {
     });
 
     player.enableIVSQualityPlugin();
-    player.src({ type: 'application/x-mpegURL', src: srcc });
+
+    // Use the proxyUrl as the source.
+    player.src({ type: 'application/x-mpegURL', src: proxyUrl });
 
     function toggleFullscreen() {
       const videoContainer = document.getElementById('video-container');
@@ -51,12 +57,12 @@ if (!base64Url) {
     }
 
     function retryLoad() {
-      player.src({ type: 'application/x-mpegURL', src: srcc });
+      player.src({ type: 'application/x-mpegURL', src: proxyUrl });
       player.play();
     }
 
     function loadWithDelay() {
-      setTimeout(function() {
+      setTimeout(function () {
         retryLoad();
       }, 5000);
     }
@@ -75,12 +81,12 @@ if (!base64Url) {
       }
     }
 
-    player.on('pause', function() {
+    player.on('pause', function () {
       console.log(`Player Paused`);
       checking = true;
     });
 
-    player.on('play', function() {
+    player.on('play', function () {
       console.log(`Player Playing`);
       checking = false;
     });
@@ -94,5 +100,6 @@ if (!base64Url) {
     errorMessage.innerText = 'ERROR: Invalid Base64 URL Provided';
     errorMessage.style.fontSize = '18px';
     document.body.appendChild(errorMessage);
+    console.error("Decoding error:", error);
   }
 }
