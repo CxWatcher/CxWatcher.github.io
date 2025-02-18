@@ -12,12 +12,10 @@ if (!base64Url) {
   document.body.appendChild(errorMessage);
 } else {
   try {
-    // Decode the Base64 string. If your string is URL-encoded, use decodeURIComponent first.
-    // const decodedBase64 = decodeURIComponent(base64Url);
+
     const decodedUrl = atob(base64Url);
     console.log("Decoded URL:", decodedUrl);
 
-    // Append the proxy to the decoded URL.
     const proxyUrl = `https://api.codetabs.com/v1/proxy/?quest=${decodedUrl}`;
     console.log("Proxy URL:", proxyUrl);
 
@@ -42,7 +40,6 @@ if (!base64Url) {
 
     player.enableIVSQualityPlugin();
 
-    // Use the proxyUrl as the source.
     player.src({ type: 'application/x-mpegURL', src: proxyUrl });
 
     function toggleFullscreen() {
