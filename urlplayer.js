@@ -49,7 +49,7 @@ if (!base64Url) {
     }
 
     function retryLoad() {
-      player.src({ type: 'application/x-mpegURL', src: decodedUrl });
+      player.src({ type: 'application/x-mpegURL', src: srcc });
       player.play();
     }
 
