@@ -24,31 +24,32 @@
             overflow: hidden;
         }
 
-		.row {
-		    display: flex;
-		    flex-direction: row;
-		    width: 100%;
-		    height: 50%; /* two rows: each takes half */
-		    margin: 0;
-		    padding: 0;
-		}
-		
-		.col {
-		    flex: 1 0 33.333%; /* three columns per row */
-		    height: 100%;
-		    margin: 0;
-		    padding: 0;
-		    overflow: hidden;
-		}
+.row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 50%;
+}
 
-        .col iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            margin: 0;
-            padding: 0;
-            display: block;
-        }
+.col {
+    flex: 1 0 33.333%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.col iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    margin: 0;
+    padding: 0;
+    object-fit: cover; /* force content to fill cell */
+    transform: scale(1.05); /* slight zoom to remove any inner black edges */
+}
 	.map-logo {
     position: fixed;
     top: 5px;
