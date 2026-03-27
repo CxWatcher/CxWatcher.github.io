@@ -46,7 +46,7 @@ if (!urlParam) {
     });
 
     player.enableIVSQualityPlugin();
-    const workerProxy = 'https://your-worker-name.your-subdomain.workers.dev/';
+    const workerProxy = 'https://wild-breeze-044a.tankie.workers.dev/';
     // Use the direct targetUrl instead of the proxy
     player.src({ type: 'application/x-mpegURL', src: workerProxy + targetUrl });
 
