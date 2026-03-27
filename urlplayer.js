@@ -46,9 +46,9 @@ if (!urlParam) {
     });
 
     player.enableIVSQualityPlugin();
-
+    const workerProxy = 'https://your-worker-name.your-subdomain.workers.dev/';
     // Use the direct targetUrl instead of the proxy
-    player.src({ type: 'application/x-mpegURL', src: targetUrl });
+    player.src({ type: 'application/x-mpegURL', src: workerProxy + targetUrl });
 
     function toggleFullscreen() {
       const videoContainer = document.getElementById('video-container');
@@ -63,7 +63,7 @@ if (!urlParam) {
 
     function retryLoad() {
       // Use the direct targetUrl for retries as well
-      player.src({ type: 'application/x-mpegURL', src: targetUrl });
+      player.src({ type: 'application/x-mpegURL', src: workerProxy + targetUrl });
       player.play();
     }
 
