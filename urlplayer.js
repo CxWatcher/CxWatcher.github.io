@@ -1,24 +1,31 @@
 const urlParams = new URLSearchParams(window.location.search);
-const base64Url = urlParams.get('url');
+const urlParam = urlParams.get('url');
 const video = document.getElementById('amazon-ivs-videojs');
 
-if (!base64Url) {
+if (!urlParam) {
   document.body.innerHTML = '';
 
   const errorMessage = document.createElement('div');
   errorMessage.innerText =
-    'ERROR: Incorrect Use\nExample: https://cxwatcher.github.io/embed.html?url=<BASE64_ENCODED_URL>';
+    'ERROR: Incorrect Use\nExample: https://cxwatcher.github.io/play.html?url=<ENCODED_OR_DIRECT_URL>';
   errorMessage.style.fontSize = '18px';
   document.body.appendChild(errorMessage);
 } else {
   try {
+    let targetUrl = urlParam;
 
-    const decodedUrl = atob(base64Url);
-    console.log("Decoded URL:", decodedUrl);
+    // If the URL doesn't start with http, assume it's Base64 encoded and decode it
+    if (!urlParam.startsWith('http')) {
+      try {
+        targetUrl = atob(urlParam);
+      } catch (e) {
+        console.warn("Could not decode as base64, attempting to use raw input as URL.");
+      }
+    }
 
-    const proxyUrl = `https://api.codetabs.com/v1/proxy/?quest=${decodedUrl}`;
-    console.log("Proxy URL:", proxyUrl);
+    console.log("Target Stream URL:", targetUrl);
 
+    // Initialize the Amazon IVS Player
     registerIVSTech(videojs);
     registerIVSQualityPlugin(videojs);
     const player = videojs("amazon-ivs-videojs", {
@@ -40,7 +47,8 @@ if (!base64Url) {
 
     player.enableIVSQualityPlugin();
 
-    player.src({ type: 'application/x-mpegURL', src: proxyUrl });
+    // Use the direct targetUrl instead of the proxy
+    player.src({ type: 'application/x-mpegURL', src: targetUrl });
 
     function toggleFullscreen() {
       const videoContainer = document.getElementById('video-container');
@@ -54,7 +62,8 @@ if (!base64Url) {
     }
 
     function retryLoad() {
-      player.src({ type: 'application/x-mpegURL', src: proxyUrl });
+      // Use the direct targetUrl for retries as well
+      player.src({ type: 'application/x-mpegURL', src: targetUrl });
       player.play();
     }
 
@@ -94,9 +103,9 @@ if (!base64Url) {
     document.body.innerHTML = '';
 
     const errorMessage = document.createElement('div');
-    errorMessage.innerText = 'ERROR: Invalid Base64 URL Provided';
+    errorMessage.innerText = 'ERROR: An issue occurred while initializing the player.';
     errorMessage.style.fontSize = '18px';
     document.body.appendChild(errorMessage);
-    console.error("Decoding error:", error);
+    console.error("Player initialization error:", error);
   }
 }
